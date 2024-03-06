@@ -1,0 +1,74 @@
+[
+{
+  "model": "lots.category",
+  "pk": 1,
+  "fields": {
+    "name": "Means of transportation",
+    "description": "Lots in this category are vehicles on which you can move (from a bicycle to a helicopter)"
+  }
+},
+{
+  "model": "lots.category",
+  "pk": 2,
+  "fields": {
+    "name": "Realty",
+    "description": "This category includes various types of real estate properties, such as houses, apartments, land, and commercial spaces. Whether you're looking for a cozy home or a profitable investment, you'll find a wide range of options in the realty category"
+  }
+},
+{
+  "model": "lots.category",
+  "pk": 3,
+  "fields": {
+    "name": "Personal thing",
+    "description": "In this category, you can discover a variety of personal items that cater to different needs and preferences. From clothing, accessories, and jewelry to gadgets, fitness equipment, and beauty products, there's something for everyone to enhance their personal style and well-being."
+  }
+},
+{
+  "model": "lots.category",
+  "pk": 4,
+  "fields": {
+    "name": "For home",
+    "description": "This category offers a wide array of products and items designed to enhance the functionality, comfort, and aesthetics of your home. From furniture, appliances, and home decor to kitchenware, bedding, and gardening tools, you'll find everything you need to create your dream living space"
+  }
+},
+{
+  "model": "lots.category",
+  "pk": 5,
+  "fields": {
+    "name": "Accessories",
+    "description": "Whether you're looking to add the finishing touches to your outfit or enhance the functionality of your devices, the accessories category has it covered. From trendy bags, hats, and sunglasses to phone cases, headphones, and smartwatch straps, you'll find a vast selection of accessories to suit your style and needs"
+  }
+},
+{
+  "model": "lots.category",
+  "pk": 6,
+  "fields": {
+    "name": "Electronics",
+    "description": "The electronics category is home to a wide range of cutting-edge devices and gadgets that simplify and enhance various aspects of modern life. From smartphones, laptops, and tablets to cameras, audio systems, and gaming consoles, you can explore the latest technology offerings here"
+  }
+},
+{
+  "model": "lots.category",
+  "pk": 7,
+  "fields": {
+    "name": "Hobbies and recreation",
+    "description": "If you're looking to pursue a new interest or indulge in your favorite hobbies, this category offers a diverse range of products and equipment. From sports gear, musical instruments, and art supplies to camping equipment, board games, and collectibles, you'll find everything you need to enjoy your leisure time"
+  }
+},
+{
+  "model": "lots.category",
+  "pk": 8,
+  "fields": {
+    "name": "Animals",
+    "description": "This category is dedicated to everything related to our beloved furry friends. From pet food, toys, and grooming supplies to pet beds, leashes, and healthcare products, you'll find a wide selection of items to keep your pets healthy, happy, and well-cared for"
+  }
+},
+{
+  "model": "lots.category",
+  "pk": 9,
+  "fields": {
+    "name": "Another",
+    "description": "This category is a catch-all for anything that doesn't fit into the other categories. From unique collectibles, rare antiques, and specialized tools to miscellaneous items and one-of-a-kind products, you'll stumble upon a variety of surprises and hidden gems in this eclectic category"
+  }
+}
+]

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 import uuid
 
@@ -10,12 +11,17 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
         ordering = ['name']
     
-    name = models.CharField(max_length=48, verbose_name='category name', unique=True)
+    name = models.CharField(max_length=48, verbose_name='Category name', unique=True)
     description = models.TextField(null=True, default=None, verbose_name='Description')
-    
+    path = models.CharField(max_length=48, verbose_name='Path name', unique=True)
     
     def __str__(self):
         return self.name
+    
+    def clean(self):
+        super().clean()
+        if self.path and not self.path.endswith('/'):
+            raise ValidationError('Path must end with "/"')
         
 
 class Users(models.Model):
