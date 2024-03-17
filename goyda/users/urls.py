@@ -1,12 +1,13 @@
 from django.urls import path
-from lots.views import general
+from users.views import login, registration
 from django.conf.urls.static import static
 from django.conf import settings
 
-app_name = 'lots'
+app_name = 'users'
 
 urlpatterns = [
-    path('', general, name='pass'),
+    path('login/', login, name='login'),
+    path('registration/', registration, name='registration')
 ]
 
 if settings.DEBUG:

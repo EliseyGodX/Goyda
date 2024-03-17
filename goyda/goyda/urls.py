@@ -1,14 +1,14 @@
 from django.contrib import admin
 from django.urls import path, include
+from lots.views import general
 from django.conf.urls.static import static
 from django.conf import settings
 
-from lots.views import general
-
 urlpatterns = [
-    path('', general, name='general'),
     path('admin/', admin.site.urls),
+    path('', general, name='general'),
     path('lots/', include('lots.urls', namespace='lots')),
+    path('users/', include('users.urls', namespace='users')),
 ]
 
 if settings.DEBUG:

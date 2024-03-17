@@ -1,7 +1,8 @@
 from django.shortcuts import render
 
 def general(request):
-    return render(request, 'lots/lots.html')
+    context = {'test': 123}
+    return render(request, 'lots/general.html', context)
 
-def lots(request):
-    return '1'
+def purchases(request):
+    return render
