@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from lots.validators import Validator
 
 class User(AbstractUser):
     
@@ -14,4 +15,12 @@ class User(AbstractUser):
     balance = models.IntegerField(default=0, verbose_name="User's balance")
     about = models.TextField(blank=True, null=True, verbose_name='About the user')
     avatar = models.ImageField(upload_to='avatars', default='avatars/default.jpg')
-    phone = models.PositiveSmallIntegerField(blank=True, null=True, verbose_name="The user's phone number")
+    phone = models.CharField(blank=True, null=True, max_length=19, verbose_name="The user's phone number")
+
+    def clean(self):
+        Validator.custom_name_onlyAlpha(self.first_name, 'first name')
+        Validator.custom_name_onlyAlpha(self.last_name, 'last name')
+        Validator.city(self.city)
+        Validator.age(self.age)
+        if self.phone is not None:
+            Validator.phone_number(self.phone)

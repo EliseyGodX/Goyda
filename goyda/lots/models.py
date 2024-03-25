@@ -11,7 +11,7 @@ class Category(models.Model):
         ordering = ['name']
     
     name = models.CharField(max_length=48, verbose_name='Category name', unique=True)
-    description = models.TextField(null=True, default=None, verbose_name='Description')
+    description = models.TextField(blank=True, default=None, verbose_name='Description')
     path = models.CharField(max_length=48, verbose_name='Path name', unique=True)
     
     def __str__(self):
@@ -43,3 +43,9 @@ class Lots(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def clean(self):
+        Validator.custom_name(self.title)
+        Validator.int_(self.cost)
+        Validator.city(self.city)
+        
