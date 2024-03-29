@@ -1,26 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext as _
 from lots.validators import Validator
 
 class User(AbstractUser):
     
-    first_name = models.CharField(max_length=48, verbose_name="First name")
-    last_name = models.CharField(max_length=48, verbose_name="Last name")
-    email = models.EmailField(verbose_name="User's email")
+    first_name = models.CharField(_("first name"), max_length=48, validators=[Validator.custom_name_onlyAlpha('first name')])
+    last_name = models.CharField(_("last name"), max_length=48, validators=[Validator.custom_name_onlyAlpha('last name')])
+    email = models.EmailField(_("email address"))
     
-    city = models.CharField(max_length=48, verbose_name="The user's city")
-    age = models.PositiveSmallIntegerField(verbose_name="User's age")
-    purchases = models.PositiveSmallIntegerField(default=0, verbose_name="Purchases made by the user")
-    sales = models.PositiveSmallIntegerField(default=0,verbose_name="Sales made by the user")
-    balance = models.IntegerField(default=0, verbose_name="User's balance")
-    about = models.TextField(blank=True, null=True, verbose_name='About the user')
-    avatar = models.ImageField(upload_to='avatars', default='avatars/default.jpg')
-    phone = models.CharField(blank=True, null=True, max_length=19, verbose_name="The user's phone number")
-
-    def clean(self):
-        Validator.custom_name_onlyAlpha(self.first_name, 'first name')
-        Validator.custom_name_onlyAlpha(self.last_name, 'last name')
-        Validator.city(self.city)
-        Validator.age(self.age)
-        if self.phone is not None:
-            Validator.phone_number(self.phone)
+    city = models.CharField(_("the user's city"), max_length=48, validators=[Validator.city])
+    age = models.PositiveSmallIntegerField(_("user's age"), validators=[Validator.age])
+    purchases = models.PositiveSmallIntegerField(_("purchases made by the user"), default=0)
+    sales = models.PositiveSmallIntegerField(_("sales made by the user"), default=0)
+    balance = models.IntegerField(_("user's balance"), default=0)
+    about = models.TextField(_("about the user"), blank=True)
+    avatar = models.ImageField(_("user's avatar"), upload_to='avatars', default='avatars/default.jpg')
+    phone = models.CharField(_("the user's phone number"), validators=[Validator.phone_number], blank=True, max_length=19)
