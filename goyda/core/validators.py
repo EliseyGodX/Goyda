@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 import re
 
 class Validator:
@@ -30,7 +30,7 @@ class Validator:
                 raise ValidationError(
                     _(f'The {hint} contains invalid characters'),
                     code='invalid')
-            if len(data) < 3:
+            if len(data) < 2:
                 raise ValidationError(
                     _(f'The {hint} is too short'),
                     code='min_lenght')

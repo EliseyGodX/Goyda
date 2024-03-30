@@ -1,0 +1,152 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-30 14:31+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+#: .\lots\models.py:9
+msgid "category name"
+msgstr ""
+
+#: .\lots\models.py:10
+msgid "description"
+msgstr ""
+
+#: .\lots\models.py:11
+msgid "path to category"
+msgstr ""
+
+#: .\lots\models.py:26
+msgid "seller"
+msgstr ""
+
+#: .\lots\models.py:27
+msgid "buyer"
+msgstr ""
+
+#: .\lots\models.py:28
+msgid "lot name"
+msgstr ""
+
+#: .\lots\models.py:29
+msgid "lot picture"
+msgstr ""
+
+#: .\lots\models.py:30
+msgid "lot category"
+msgstr ""
+
+#: .\lots\models.py:31
+msgid "the cost of the lot"
+msgstr ""
+
+#: .\lots\models.py:32
+msgid "description of the lot"
+msgstr ""
+
+#: .\lots\models.py:33
+msgid "sellers city"
+msgstr ""
+
+#: .\lots\models.py:34
+msgid "date of placement"
+msgstr ""
+
+#: .\lots\models.py:35
+msgid "date of end"
+msgstr ""
+
+#: .\lots\templates\lots\base.html:60
+msgid "Account"
+msgstr ""
+
+#: .\lots\validators.py:12
+#, python-brace-format
+msgid "{hint} must end with \"/\""
+msgstr ""
+
+#: .\lots\validators.py:17 .\lots\validators.py:31 .\lots\validators.py:46
+#, python-brace-format
+msgid "The {hint} contains invalid characters"
+msgstr ""
+
+#: .\lots\validators.py:27
+#, python-brace-format
+msgid "The {hint} must start with a letter"
+msgstr ""
+
+#: .\lots\validators.py:35 .\lots\validators.py:69
+#, python-brace-format
+msgid "The {hint} is too short"
+msgstr ""
+
+#: .\lots\validators.py:56
+#, python-brace-format
+msgid ""
+"Enter the correct name of the {hint} (fill in all the spaces with \"-\", use "
+"only lowercase characters)"
+msgstr ""
+
+#: .\lots\validators.py:65
+#, python-brace-format
+msgid "The {hint} must start with \"+\""
+msgstr ""
+
+#: .\users\models.py:8
+msgid "first name"
+msgstr ""
+
+#: .\users\models.py:9
+msgid "last name"
+msgstr ""
+
+#: .\users\models.py:10
+msgid "email address"
+msgstr ""
+
+#: .\users\models.py:12
+msgid "the user's city"
+msgstr ""
+
+#: .\users\models.py:13
+msgid "user's age"
+msgstr ""
+
+#: .\users\models.py:14
+msgid "purchases made by the user"
+msgstr ""
+
+#: .\users\models.py:15
+msgid "sales made by the user"
+msgstr ""
+
+#: .\users\models.py:16
+msgid "user's balance"
+msgstr ""
+
+#: .\users\models.py:17
+msgid "about the user"
+msgstr ""
+
+#: .\users\models.py:18
+msgid "user's avatar"
+msgstr ""
+
+#: .\users\models.py:19
+msgid "the user's phone number"
+msgstr ""
