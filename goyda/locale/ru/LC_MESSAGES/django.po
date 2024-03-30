@@ -23,7 +23,7 @@ msgstr ""
 msgid "category name"
 msgstr ""
 
-#: .\lots\models.py:10
+#: .\lots\models.py:10       
 msgid "description"
 msgstr ""
 

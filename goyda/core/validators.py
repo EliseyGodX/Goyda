@@ -1,85 +1,175 @@
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.utils.deconstruct import deconstructible
+from typing import Optional
 import re
+import abc
 
-class Validator:
+
+@deconstructible
+class CustomValidator(abc.ABC):
+    error_message = {
+        'typeError': _('an argument of the wrong type was passed'),
+        'indexError': _('incorrect argument structure'),
+        'valueError': _('the value of the argument is not correct'),
+        
+        'lettersError': _('this field must contain only letters'),
+        'max_lengthError': _('you have exceeded the limit: '),
+        'min_lengthError': _('you have not entered enough characters. This field must contain from characters: ')
+    }
     
-    @staticmethod
-    def path(hint='path'):
-        def validator(path):
-            if not path.endswith('/'):
-                raise ValidationError(
-                    _(f'{hint} must end with "/"'),
-                    code='invalid')
-            regex = r'^[a-zA-Z0-9\-._~:/?#\[\]@!$&\'()*+,;=%]*$'
-            if re.match(regex, path) is None: 
-                raise ValidationError(
-                    _(f'The {hint} contains invalid characters'),
-                    code='invalid')
-        return validator  
+    def __init__(self, change_error_message: Optional[list[str, str] | tuple[str, str]], code: str):
+        if change_error_message is not None:
+            try:
+                for i in change_error_message:
+                    self.error_message[i[0]] = _(i[1])
+            except TypeError:
+                raise TypeError(f"{self.error_message['typeError']} (change_error_message)")
+            except IndexError:
+                raise IndexError(f"{self.error_message['indexError']} (change_error_message)")
+
+        try:
+            self.code = str(code)
+        except TypeError:
+            raise TypeError(f"{self.error_message['typeError']} (code)")
+
+    @abc.abstractmethod
+    def __call__(self, data):
+        """Validator Logic"""
+
+@deconstructible
+class NameValidator(CustomValidator):
+    code = 'invalid'
+    
+    def __init__(self, min_lenght: int = 2, max_lenght: int = 24,
+                 change_error_message: Optional[list[str, str] | tuple[str, str]] = None,
+                 code: str = code):
+        super().__init__(change_error_message, code)
+            
+        if not isinstance(min_lenght, int) or min_lenght < 0:
+            raise ValueError(f"{self.error_message['valueError']} (min_lenght)")
+        if not isinstance(max_lenght, int) or max_lenght < 2 or min_lenght > max_lenght:
+            raise ValueError(f"{self.error_message['valueError']} (max_lenght)")
         
-    @staticmethod
-    def custom_name(hint='name'):
-        def validator(data):
-            regex = r'^[a-zA-Z0-9\-._~:/?#\[\]@!$&\'()*+,;=%]*$'
-            if not data[0].isalpha():
-                raise ValidationError(
-                    _(f'The {hint} must start with a letter'),
-                    code='invalid')
-            if re.match(regex, data) is None: 
-                raise ValidationError(
-                    _(f'The {hint} contains invalid characters'),
-                    code='invalid')
-            if len(data) < 2:
-                raise ValidationError(
-                    _(f'The {hint} is too short'),
-                    code='min_lenght')
-        return validator     
+        self.min_lenght = min_lenght
+        self.max_lenght = max_lenght
         
-    @staticmethod
-    def custom_name_onlyAlpha(hint='name'):
-        def validator(data):
-            first_check = Validator.custom_name(hint)
-            first_check(data)
-            if not data.isalpha():
-                raise ValidationError(
-                    _(f'The {hint} contains invalid characters'),
-                    code='invalid')
-        return validator
+    def __call__(self, name: str):
+        try:
+            name = str(name)
+        except TypeError:
+            raise TypeError(f"{self.error_message['typeError']} (name)")
         
-    @staticmethod
-    def city(hint='city'):
-        def validator(city):
-            regex = r"^([a-z\u0080-\u024F]+(?:. |-| |'))*[a-z\u0080-\u024F]*$"
-            if re.match(regex, city) is None   or " " in city   or len(city) == 1: 
-                raise ValidationError(
-                    _(f'Enter the correct name of the {hint} (fill in all the spaces with "-", use only lowercase characters)'),
-                    code='invalid')
-        return validator
+        if not name.isalpha():
+            raise ValidationError(self.error_message['lettersError'], code=self.code)
+        elif len(name) > self.max_lenght:
+            raise ValidationError(self.error_message['max_lengthError'] + str(self.max_lenght), code=self.code)
+        elif len(name) < self.min_lenght:
+            raise ValidationError(self.error_message['min_lengthError'] + str(self.min_lenght), code=self.code)
         
-    @staticmethod
-    def phone_number(hint='phone number'):
-        def validator(number):
-            if not number.startswith('+'): 
-                raise ValidationError(
-                    _(f'The {hint} must start with "+"'),
-                    code='invalid')
-            elif len(number) < 8:
-                raise ValidationError(
-                    _(f'The {hint} is too short'),
-                    code='min_lenght')
-        return validator
+
+@deconstructible
+class PathValidator(CustomValidator):
+    code = 'invalid'
+    regex = r'^[a-zA-Z0-9\-._~:/?#\[\]@!$&\'()*+,;=%]*$'
+    
+    def __init__(self, change_error_message: Optional[list[str, str] | tuple[str, str]] = None,
+                 code: str = code, regex: str = regex):
+        super().__init__(change_error_message, code)
+        try:
+            re.compile(regex)
+        except re.error:
+            raise TypeError(f"{self.error_message['typeError']} (regex)")
+        self.regex = regex
         
-    @staticmethod
-    def age(low_age='The auction is intended for users who are over 18', 
-            ower_age='Not a funny joke'):
-        def validator(age):
-            if age < 18: 
-                raise ValidationError(
-                    _(low_age),
-                    code='min_age')
-            elif age > 99:
-                raise ValidationError(
-                    _(ower_age),
-                    code='over_age')
-        return validator
+        
+    def __call__(self, path: str):
+        try:
+            path = str(path)
+        except TypeError:
+            raise TypeError(f"{self.error_message['typeError']} (path)")
+        
+        if not path.endswith('/'):
+            raise ValidationError(self.error_message['valueError'] + _('The path must end in /'), code=self.code)
+        if re.match(self.regex, path) is None: 
+            raise ValidationError(self.error_message['valueError'] + _('The path contains invalid characters'), code=self.code)
+    
+    
+    
+@deconstructible
+class CityValidator(CustomValidator):
+    code = 'invalid'
+    regex = r"^([a-z\u0080-\u024F]+(?:. |-| |'))*[a-z\u0080-\u024F]*$"
+    
+    def __init__(self, min_lenght: int = 2, max_lenght: int = 24,
+                 change_error_message: Optional[list[str, str] | tuple[str, str]] = None,
+                 code: str = code, regex: str = regex):
+        super().__init__(change_error_message, code)
+        
+        try:
+            re.compile(regex)
+        except re.error:
+            raise TypeError(f"{self.error_message['typeError']} (regex)")
+        self.regex = regex
+        
+        if not isinstance(min_lenght, int) or min_lenght < 0:
+            raise ValueError(f"{self.error_message['valueError']} (min_lenght)")
+        if not isinstance(max_lenght, int) or max_lenght < 2 or min_lenght > max_lenght:
+            raise ValueError(f"{self.error_message['valueError']} (max_lenght)")
+        
+        self.min_lenght = min_lenght
+        self.max_lenght = max_lenght
+        
+    def __call__(self, city: str):
+        try:
+            city = str(city)
+        except TypeError:
+            raise TypeError(f"{self.error_message['typeError']} (city)")
+        
+        if re.match(self.regex, city) is None or " " in city:
+            raise ValidationError(self.error_message['valueError'] + _('Enter the correct name of the city (fill in all the spaces with "-", use only lowercase characters)'), code=self.code)
+        elif len(city) > self.max_lenght:
+            raise ValidationError(self.error_message['max_lengthError'] + str(self.max_lenght), code=self.code)
+        elif len(city) < self.min_lenght:
+            raise ValidationError(self.error_message['min_lengthError'] + str(self.min_lenght), code=self.code)
+    
+
+@deconstructible
+class PhoneNumberValidator(CustomValidator):
+    code = 'invalid'
+    regex = r'^\+\d+$'
+    
+    def __init__(self, min_lenght: int = 8, max_lenght: int = 19,
+                 change_error_message: Optional[list[str, str] | tuple[str, str]] = None,
+                 code: str = code, regex: str = regex):
+        super().__init__(change_error_message, code)
+        
+        try:
+            re.compile(regex)
+        except re.error:
+            raise TypeError(f"{self.error_message['typeError']} (regex)")
+        self.regex = regex
+        
+        if not isinstance(min_lenght, int) or min_lenght < 0:
+            raise ValueError(f"{self.error_message['valueError']} (min_lenght)")
+        if not isinstance(max_lenght, int) or max_lenght < 2 or min_lenght > max_lenght:
+            raise ValueError(f"{self.error_message['valueError']} (max_lenght)")
+        
+        self.min_lenght = min_lenght
+        self.max_lenght = max_lenght
+        
+        
+    def __call__(self, phone_number: str):
+        try:
+            phone_number = str(phone_number)
+        except TypeError:
+            raise TypeError(f"{self.error_message['typeError']} (phone_number)")
+        
+        if re.match(self.regex, phone_number):
+            raise ValidationError(self.error_message['valueError'] + _('the phone number is uncorrected'), code=self.code)
+        elif len(phone_number) > self.max_lenght:
+            raise ValidationError(self.error_message['max_lengthError'] + str(self.max_lenght), code=self.code)
+        elif len(phone_number) < self.min_lenght:
+            raise ValidationError(self.error_message['min_lengthError'] + str(self.min_lenght), code=self.code)
+  
+    
