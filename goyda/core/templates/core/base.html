@@ -1,4 +1,3 @@
-{% load static %}
 {% load i18n%}
 
 <!doctype html>
@@ -31,14 +30,14 @@
       <div class="modal-dialog">
          <div class="modal-content">
             <div class="modal-header">
-               <h1 class="modal-title fs-5" id="exampleModalLabel">Replenishment of the balance</h1>
+               <h1 class="modal-title fs-5" id="exampleModalLabel">{% translate 'Replenishment of the balance' %}</h1>
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-               To top up your balance, follow the following instructions:
+               {% translate 'To top up your balance, follow the following instructions:' %}
             </div>
             <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate 'Close' %}</button>
             </div>
          </div>
       </div>
@@ -60,27 +59,22 @@
                   <a href="#" class="btn btn-primary">{% translate 'Account' %}</a>
                </li>
                <li class="nav-item">
-                  <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#balanceModal">Balance:
+                  <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#balanceModal">{% translate 'Balance' %}
                   </a>
                </li>
                <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                      aria-expanded="false">
-                     Categories
+                     {% translate 'Categories' %}
                   </a>
                   <ul class="dropdown-menu">
-                     <li><a class="dropdown-item" href="#">Accessories</a></li>
-                     <li><a class="dropdown-item" href="#">Animals</a></li>
-                     <li><a class="dropdown-item" href="#">Electronics</a></li>
-                     <li><a class="dropdown-item" href="#">For home</a></li>
-                     <li><a class="dropdown-item" href="#">Hobbies and recreation</a></li>
-                     <li><a class="dropdown-item" href="#">Means of transportation</a></li>
-                     <li><a class="dropdown-item" href="#">Personal thing</a></li>
-                     <li><a class="dropdown-item" href="#">Realty</a></li>
+                     {% for category in categories %}
+                     <li><a class="dropdown-item" href="{% url 'category:category' category_slug=category.slug %}">{{category.name }}</a></li>
+                     {% endfor %}
                      <li>
                         <hr class="dropdown-divider">
                      </li>
-                     <li><a class="dropdown-item" href="#">Another</a></li>
+                     <li><a class="dropdown-item" href="{% url 'category:category' category_slug='another' %}">{% translate 'Another' %}</a></li>
                   </ul>
                </li>
             </ul>
@@ -93,22 +87,21 @@
       <div class="container-fluid">
          <nav aria-label="Page navigation example">
             <ul class="pagination">
-               <li class="page-item"><a class="page-link" href="#">Track purchases <span
+               <li class="page-item"><a class="page-link" href="#">{% translate 'Track purchases' %} <span
                         class="badge text-bg-danger">1</span></a></li>
-               <li class="page-item"><a class="page-link" href="#">Track sales <span
+               <li class="page-item"><a class="page-link" href="#">{% translate 'Track sales' %} <span
                         class="badge text-bg-secondary">0</span></a></li>
-               <li class="page-item"><a class="page-link" href="#">Sell</a></li>
+               <li class="page-item"><a class="page-link" href="#">{% translate 'Sell' %}</a></li>
             </ul>
          </nav>
          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input class="form-control me-2" type="search" placeholder="{% translate 'Search by all categories' %}" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">{% translate 'Search' %}</button>
          </form>
       </div>
       </div>
    </nav>
 
-   <p></p>
 
    {% block content %} {% endblock %}
 

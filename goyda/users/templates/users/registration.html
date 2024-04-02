@@ -1,18 +1,19 @@
 {% extends 'users/base.html' %}
+{% load i18n%}
 
 {% block title %}Registration{% endblock %}
 
 {% block form %}
 <div class="col-md-4">
-    <label for="validationDefault01" class="form-label">First name</label>
+    <label for="validationDefault01" class="form-label">{% translate 'First name' %}</label>
     <input type="text" class="form-control" id="validationDefault01" required>
 </div>
 <div class="col-md-4">
-    <label for="validationDefault02" class="form-label">Last name</label>
+    <label for="validationDefault02" class="form-label">{% translate 'Last name' %}</label>
     <input type="text" class="form-control" id="validationDefault02" required>
 </div>
 <div class="col-md-4">
-    <label for="validationDefaultUsername" class="form-label">Username</label>
+    <label for="validationDefaultUsername" class="form-label">{% translate 'Username' %}</label>
     <div class="input-group">
         <span class="input-group-text" id="inputGroupPrepend2">@</span>
         <input type="text" class="form-control" id="validationDefaultUsername" aria-describedby="inputGroupPrepend2"
@@ -20,24 +21,24 @@
     </div>
 </div>
 <div class="col-md-3">
-    <label for="validationDefault03" class="form-label">City</label>
+    <label for="validationDefault03" class="form-label">{% translate 'City' %}</label>
     <input type="text" class="form-control" id="validationDefault03" required>
 </div>
 <div class="col-md-5">
-    <label for="formFile" class="form-label">Avatar</label>
+    <label for="formFile" class="form-label">{% translate 'Avatar' %}</label>
     <input class="form-control" type="file" id="formFile">
 </div>
 <div class="col-md-4">
-    <label for="validationDefault05" class="form-label">Age</label>
+    <label for="validationDefault05" class="form-label">{% translate 'Age' %}</label>
     <input type="number" class="form-control" id="validationDefault05" required>
 </div>
 <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <label for="exampleInputEmail1" class="form-label">{% translate 'Email' %}</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 </div>
 <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <label for="exampleInputPassword1" class="form-label">{% translate 'Password' %}</label>
     <input type="password" class="form-control" id="exampleInputPassword1">
 </div>
-<button type="submit" class="btn btn-primary">Ready</button>
+<button type="submit" class="btn btn-primary">{% translate 'Ready' %}</button>
 {% endblock %}

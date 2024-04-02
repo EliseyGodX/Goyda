@@ -14,11 +14,12 @@ class CustomValidator(abc.ABC):
         'valueError': _('the value of the argument is not correct'),
         
         'lettersError': _('this field must contain only letters'),
+        'firstLetterError': _('The name must begin with the letter'),
         'max_lengthError': _('you have exceeded the limit: '),
         'min_lengthError': _('you have not entered enough characters. This field must contain from characters: ')
     }
     
-    def __init__(self, change_error_message: Optional[list[str, str] | tuple[str, str]], code: str):
+    def __init__(self, change_error_message: Optional[list[tuple]], code: str):
         if change_error_message is not None:
             try:
                 for i in change_error_message:
@@ -36,23 +37,28 @@ class CustomValidator(abc.ABC):
     @abc.abstractmethod
     def __call__(self, data):
         """Validator Logic"""
+        
+        
 
 @deconstructible
 class NameValidator(CustomValidator):
     code = 'invalid'
     
     def __init__(self, min_lenght: int = 2, max_lenght: int = 24,
-                 change_error_message: Optional[list[str, str] | tuple[str, str]] = None,
-                 code: str = code):
+                 change_error_message:  Optional[list[tuple]] = None,
+                 code: str = code, only_letters: bool = True):
         super().__init__(change_error_message, code)
             
         if not isinstance(min_lenght, int) or min_lenght < 0:
             raise ValueError(f"{self.error_message['valueError']} (min_lenght)")
         if not isinstance(max_lenght, int) or max_lenght < 2 or min_lenght > max_lenght:
             raise ValueError(f"{self.error_message['valueError']} (max_lenght)")
+        if not isinstance(only_letters, bool):
+            raise ValueError(f"{self.error_message['valueError']} (only_letters)")
         
         self.min_lenght = min_lenght
         self.max_lenght = max_lenght
+        self.only_letters = only_letters
         
     def __call__(self, name: str):
         try:
@@ -60,12 +66,15 @@ class NameValidator(CustomValidator):
         except TypeError:
             raise TypeError(f"{self.error_message['typeError']} (name)")
         
-        if not name.isalpha():
+        if self.only_letters == True and not name.isalpha():
             raise ValidationError(self.error_message['lettersError'], code=self.code)
+        elif self.only_letters == False and not name[0].isalpha():
+            raise ValidationError(self.error_message['firstLetterError'], code=self.code)
         elif len(name) > self.max_lenght:
             raise ValidationError(self.error_message['max_lengthError'] + str(self.max_lenght), code=self.code)
         elif len(name) < self.min_lenght:
             raise ValidationError(self.error_message['min_lengthError'] + str(self.min_lenght), code=self.code)
+        
         
 
 @deconstructible
@@ -73,7 +82,7 @@ class PathValidator(CustomValidator):
     code = 'invalid'
     regex = r'^[a-zA-Z0-9\-._~:/?#\[\]@!$&\'()*+,;=%]*$'
     
-    def __init__(self, change_error_message: Optional[list[str, str] | tuple[str, str]] = None,
+    def __init__(self, change_error_message:  Optional[list[tuple]] = None,
                  code: str = code, regex: str = regex):
         super().__init__(change_error_message, code)
         try:
@@ -102,7 +111,7 @@ class CityValidator(CustomValidator):
     regex = r"^([a-z\u0080-\u024F]+(?:. |-| |'))*[a-z\u0080-\u024F]*$"
     
     def __init__(self, min_lenght: int = 2, max_lenght: int = 24,
-                 change_error_message: Optional[list[str, str] | tuple[str, str]] = None,
+                 change_error_message:  Optional[list[tuple]] = None,
                  code: str = code, regex: str = regex):
         super().__init__(change_error_message, code)
         
@@ -140,7 +149,7 @@ class PhoneNumberValidator(CustomValidator):
     regex = r'^\+\d+$'
     
     def __init__(self, min_lenght: int = 8, max_lenght: int = 19,
-                 change_error_message: Optional[list[str, str] | tuple[str, str]] = None,
+                 change_error_message:  Optional[list[tuple]] = None,
                  code: str = code, regex: str = regex):
         super().__init__(change_error_message, code)
         

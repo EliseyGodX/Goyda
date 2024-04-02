@@ -1,12 +1,12 @@
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from lots.views import purchases
+from category.views import LotsByCategory
 
-app_name = 'lots'
+app_name = 'category'
 
 urlpatterns = [
-    path('', purchases, name='pass'),
+    path('<slug:category_slug>', LotsByCategory.as_view(), name='category'),
 ]
 
 if settings.DEBUG:

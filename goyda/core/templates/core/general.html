@@ -1,75 +1,23 @@
 {% extends 'core/base.html' %}
+{% load i18n%}
 
 {% block content %}
 
 <hr class="border border-primary border-1 opacity-50">
-<h1 class="display-3" style="text-align: center;">Recent lots</h1>
+<h1 class="display-3" style="text-align: center;">{% translate 'Recent lots' %}</h1>
 <hr class="border border-primary border-1 opacity-50">
 
+<div class="d-flex flex-wrap">
 
-
-<div class="container text-center">
-   <div class="row">
-      <div class="col"></div>
-      <h1 class="display-7" style="text-align: left;">Another:</h1>
+   {% for lot in lots %}
+   <div class="card m-2" style="width: 18rem;">
+       <img src="{{ lot.picture.url }}" class="card-img-top" alt="Oops...">
+       <div class="card-body">
+           <h5 class="card-title">{{ lot.title }}</h5>
+           <h6 class="card-title">{% translate 'price:'%} {{ lot.price }}</h6>
+           <a href="#" class="btn btn-primary">{% translate 'Go to lot'%}</a>
+       </div>
    </div>
-
-   <div class="row">
-      <div class="col">
-         <div class="card" style="width: 18rem;">
-            <img src="goyda\lots\media\lots_imgs\alt.jpg" class="card-img-top" alt="Oops...">
-            <div class="card-body">
-               <h5 class="card-title">Card title</h5>
-               <h6 class="card-title">Card title</h6>
-               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's
-                  content.</p>
-               <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-         </div>
-      </div>
-
-      <div class="col">
-         <div class="card" style="width: 18rem;">
-            <img src="goyda\lots\media\lots_imgs\alt.jpg" class="card-img-top" alt="Oops...">
-            <div class="card-body">
-               <h5 class="card-title">Card title</h5>
-               <h6 class="card-title">Card title</h6>
-               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's
-                  content.</p>
-               <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-         </div>
-      </div>
-
-      <div class="col">
-         <div class="card" style="width: 18rem;">
-            <img src="goyda\lots\media\lots_imgs\alt.jpg" class="card-img-top" alt="Oops...">
-            <div class="card-body">
-               <h5 class="card-title">Card title</h5>
-               <h6 class="card-title">Card title</h6>
-               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card'sF
-                  content.</p>
-               <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-         </div>
-      </div>
-
-      <div class="col">
-         <div class="card" style="width: 18rem;">
-            <img src="" class="card-img-top" alt="Oops...">
-            <div class="card-body">
-               <h5 class="card-title">Card title</h5>
-               <h6 class="card-title">Card title</h6>
-               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's
-                  content.</p>
-               <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-         </div>
-      </div>
-   </div>
-   <hr class="border border-primary border-1 opacity-25">
+   {% endfor %}
+</div>
 {% endblock %}
