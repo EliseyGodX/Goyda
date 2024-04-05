@@ -3,9 +3,11 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MaxValueValidator
 from core.validators import NameValidator, CityValidator, PhoneNumberValidator
+import uuid
 
 class User(AbstractUser):
     
+    ID = models.UUIDField(primary_key=True, db_index=True, default=uuid.uuid4)
     first_name = models.CharField(_("first name"), max_length=48, 
                                   validators=[NameValidator()])
     last_name = models.CharField(_("last name"), max_length=48, validators=[NameValidator()])

@@ -1,12 +1,13 @@
 from typing import Any
 from django.db.models.query import QuerySet
-from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
+from django.shortcuts import get_object_or_404
 from category.models import Category
 from lots.models import Lots
+from core.utils import DataMixin
 
 
-class LotsByCategory(ListView):
+class LotsByCategory(DataMixin, ListView):
     model = Lots
     context_object_name = 'lots'
     template_name = 'category/category.html'
@@ -16,8 +17,8 @@ class LotsByCategory(ListView):
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        category = Category.objects.get(slug=self.kwargs['category_slug'])
-        context['title'] = category.name
-        context['categories'] = Category.objects.all()
+        category = get_object_or_404(Category, slug=self.kwargs['category_slug'])
+        context_mixin = self.get_default_context(title=category.name)
         context['description'] = category.description
+        context.update(context_mixin)
         return context
