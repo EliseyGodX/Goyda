@@ -1,44 +1,66 @@
 {% extends 'users/base.html' %}
 {% load i18n%}
 
-{% block title %}Registration{% endblock %}
+{% block title %}{% translate 'Registration' %}{% endblock %}
 
 {% block form %}
-<div class="col-md-4">
-    <label for="validationDefault01" class="form-label">{% translate 'First name' %}</label>
-    <input type="text" class="form-control" id="validationDefault01" required>
-</div>
-<div class="col-md-4">
-    <label for="validationDefault02" class="form-label">{% translate 'Last name' %}</label>
-    <input type="text" class="form-control" id="validationDefault02" required>
-</div>
-<div class="col-md-4">
-    <label for="validationDefaultUsername" class="form-label">{% translate 'Username' %}</label>
-    <div class="input-group">
-        <span class="input-group-text" id="inputGroupPrepend2">@</span>
-        <input type="text" class="form-control" id="validationDefaultUsername" aria-describedby="inputGroupPrepend2"
-            required>
+<form method="post" action="{% url 'users:registration' %}" class="form" enctype="multipart/form-data"> {% csrf_token %}
+    {% if form.errors %}
+    <ul>
+        {% for field in form %}
+        {% for error in field.errors %}
+        <li>{{ field.label }}: {{ error }}</li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-4">
+            <label for="{{ form.first_name.id_for_label }}" class="form-label">{% translate 'First name' %}</label>
+            {{ form.first_name }}
+        </div>
+        <div class="col-md-4">
+            <label for="{{ form.last_name.id_for_label }}" class="form-label">{% translate 'Last name' %}</label>
+            {{ form.last_name }}
+        </div>
+
+        <div class="col-md-4">
+            <label for="{{ form.username.id_for_label }}" class="form-label">{% translate 'Username' %}</label>
+            <div class="input-group">
+                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                {{ form.username }}
+            </div>
+        </div>
     </div>
-</div>
-<div class="col-md-3">
-    <label for="validationDefault03" class="form-label">{% translate 'City' %}</label>
-    <input type="text" class="form-control" id="validationDefault03" required>
-</div>
-<div class="col-md-5">
-    <label for="formFile" class="form-label">{% translate 'Avatar' %}</label>
-    <input class="form-control" type="file" id="formFile">
-</div>
-<div class="col-md-4">
-    <label for="validationDefault05" class="form-label">{% translate 'Age' %}</label>
-    <input type="number" class="form-control" id="validationDefault05" required>
-</div>
-<div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">{% translate 'Email' %}</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-</div>
-<div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">{% translate 'Password' %}</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-</div>
-<button type="submit" class="btn btn-primary">{% translate 'Ready' %}</button>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="{{ form.city.id_for_label }}" class="form-label">{% translate 'City' %}</label>
+            {{ form.city }}
+        </div>
+        <div class="col-md-5">
+            <label for="{{ form.avatar.id_for_label }}" class="form-label">{% translate 'Avatar' %}</label>
+            {{ form.avatar }}
+        </div>
+        <div class="col-md-4">
+            <label for="{{ form.age.id_for_label }}" class="form-label">{% translate 'Age' %}</label>
+            {{ form.age }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label for="{{ form.email.id_for_label }}" class="form-label">{% translate 'Email' %}</label>
+            {{ form.email }}
+        </div>
+        <div class="col-md-4">
+            <label for="{{ form.password1.id_for_label }}" class="form-label">{% translate 'Password' %}</label>
+            {{ form.password1 }}
+        </div>
+        <div class="col-md-4">
+            <label for="{{ form.password2.id_for_label }}" class="form-label">{% translate 'Repeat password' %}</label>
+            {{ form.password2 }}
+        </div>
+    </div>
+    <p></p>
+    <button type="submit" class="btn btn-primary">{% translate 'Ready' %}</button>
+</form>
 {% endblock %}
