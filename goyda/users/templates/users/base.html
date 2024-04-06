@@ -1,10 +1,13 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<p></p>
-<h1>{% block title %} {% endblock %}</h1>
-<p></p>
+<div class="container">
+    <div class="row justify-content-center">
+        <p></p>
+        <h1>{% block title %} {% endblock %}</h1>
+        <p></p>
 
-{% block form %} {% endblock %}
-
+        {% block form %} {% endblock %}
+    </div>
+</div>
 {% endblock %}
