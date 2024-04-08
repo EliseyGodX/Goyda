@@ -61,7 +61,10 @@ ROOT_URLCONF = 'goyda.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            'users/accounts/templates'
+            ],
         'APP_DIRS': [BASE_DIR / 'templates'],
         'OPTIONS': {
             'context_processors': [

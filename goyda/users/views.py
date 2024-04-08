@@ -1,13 +1,15 @@
 from typing import Any
-from django.views.generic import FormView, RedirectView
+from django.views.generic import FormView, RedirectView, DetailView
 from core.utils import DataMixin
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
 from users.forms import UserRegistrationForm, LoginUserForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
+from users.models import User
 
 @method_decorator(csrf_protect, name='dispatch')
 class UsersLoginView(DataMixin, FormView):
@@ -45,5 +47,3 @@ class UsersRegistrationView(DataMixin, FormView):
         user = form.save()
         login(self.request, user)
         return redirect('general')
-    
-    
