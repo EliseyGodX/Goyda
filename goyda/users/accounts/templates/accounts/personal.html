@@ -23,6 +23,10 @@
                 <li class="list-group-item">{% translate 'Purchases made: ' %}{{ user.purchases }}</li>
                 <li class="list-group-item">{% translate 'Sales made: ' %}{{ user.sales }}</li>
             </ul>
+            <div class="card-body">
+                <a href="{% url 'users:accounts:edit' %}" class="card-link">{% translate 'Edit' %}</a>
+                <a href="#" class="card-link">{% translate 'Change password' %}</a>
+            </div>
         </div>
     </div>
 </div>

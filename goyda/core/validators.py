@@ -146,7 +146,7 @@ class CityValidator(CustomValidator):
 @deconstructible
 class PhoneNumberValidator(CustomValidator):
     code = 'invalid'
-    regex = r'^\+\d+$'
+    regex = r'\+[0-9]+'
     
     def __init__(self, min_lenght: int = 8, max_lenght: int = 19,
                  change_error_message:  Optional[list[tuple]] = None,
@@ -174,7 +174,7 @@ class PhoneNumberValidator(CustomValidator):
         except TypeError:
             raise TypeError(f"{self.error_message['typeError']} (phone_number)")
         
-        if re.match(self.regex, phone_number):
+        if re.match(self.regex, phone_number) is None:
             raise ValidationError(self.error_message['valueError'] + _('the phone number is uncorrected'), code=self.code)
         elif len(phone_number) > self.max_lenght:
             raise ValidationError(self.error_message['max_lengthError'] + str(self.max_lenght), code=self.code)
