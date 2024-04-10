@@ -1,4 +1,5 @@
 from typing import Any
+from django.http import Http404
 from django.views.generic import DetailView, UpdateView
 from django.urls import reverse_lazy
 from core.utils import DataMixin
@@ -38,3 +39,17 @@ class AccountsEditView(LoginRequiredMixin, DataMixin, UpdateView):
     
     def get_object(self, queryset=None):
         return self.request.user 
+    
+
+class AccountsBrowseView(DataMixin, DetailView):
+    model = User
+    slug_url_kwarg = 'username'
+    slug_field = "username"
+    context_object_name = 'user' 
+    template_name = 'accounts/browse.html'
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context_mixin = self.get_default_context()
+        context.update(context_mixin)
+        return context

@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import gettext_lazy as _
 from users.models import User
 from django import forms
+from django.contrib.auth.forms import SetPasswordForm
 
 class UserRegistrationForm(UserCreationForm):
     password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
@@ -32,3 +33,15 @@ class UserRegistrationForm(UserCreationForm):
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label=_('Username'), widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'text'}))
     password = forms.CharField(label=_('Password'), widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
+    
+    
+
+class UsersPasswordChangeForm(SetPasswordForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control',
+                'autocomplete': 'off'
+            })

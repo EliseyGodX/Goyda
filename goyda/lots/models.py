@@ -11,7 +11,7 @@ class Lots(models.Model):
         return Category.objects.get(name='Another')
     
     ID = models.UUIDField(primary_key=True, db_index=True, default=uuid.uuid4)
-    seller = models.ForeignKey(User, on_delete=models.SET(None), related_name='seller', verbose_name=_('seller'))
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='seller', verbose_name=_('seller'))
     buyer = models.ForeignKey(User, on_delete=models.SET_DEFAULT, null=True, default=None, blank=True, related_name='buyer', verbose_name=_('buyer'))
     title = models.CharField(_("lot name"), max_length=24, validators=[NameValidator(only_letters=False)])
     picture = models.ImageField(_("lot picture"), upload_to='lots_imgs')

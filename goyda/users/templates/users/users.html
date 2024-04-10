@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+{% load i18n%}
+
+{% block content %}
+<table class="table table-light table-hover">
+    <thead>
+        <tr>
+            <th scope="col">{% translate 'Username' %}</th>
+            <th scope="col">{% translate 'First name' %}</th>
+            <th scope="col">{% translate 'Last name' %}</th>
+            <th scope="col">{% translate 'City' %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <th scope="row"><a href="{% url 'users:accounts:browse' username=user.username %}">{{ user.username }}</a></th>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.city }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
