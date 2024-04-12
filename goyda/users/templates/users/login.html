@@ -3,8 +3,8 @@
 
 {% block title %}{% translate 'Login' %}{% endblock %}
 
-{% block form %}
-<form method="post" action="{% url 'users:login' %}" class="form" enctype="multipart/form-data">
+{% block content_ %}
+<form method="post" action="{% url 'users:login' %}" class="form">
     {% csrf_token%}
     {% if form.errors %}
     <ul>

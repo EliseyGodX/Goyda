@@ -1,0 +1,59 @@
+{% extends 'users/base.html' %}
+{% load i18n%}
+
+{% block title %}{% translate 'Track purchases' %}{% endblock %}
+
+{% block content_ %}
+
+<hr class="border border-primary border-1 opacity-50">
+<h1 class="display-3" style="text-align: center;">{% translate 'Active' %}</h1>
+
+<div class="d-flex flex-wrap">
+    {% if user.active_purchases.all %}
+    {% for lot in user.active_purchases.all %}
+    <div class="card m-2" style="width: 18rem;">
+        <img src="{{ lot.picture.url }}" class="card-img-top" alt="Oops...">
+        <div class="card-body">
+            <h5 class="card-title">{{ lot.title }}</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{% translate 'current price:'%} {{ lot.current_price }}</li>
+                <li class="list-group-item">{% translate 'start price:'%} {{ lot.start_price }}</li>
+                <li class="list-group-item">{% translate 'current buyer:'%} {{ lot.buyer }}</li>
+            </ul>
+            <a href="#" class="btn btn-primary">{% translate 'Go to lot'%}</a>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        {% translate 'Its empty here'%}
+    </div>
+</div>
+{% endif %}
+
+<hr class="border border-primary border-1 opacity-50">
+<h1 class="display-3" style="text-align: center;">{% translate 'Completed' %}</h1>
+
+<div class="d-flex flex-wrap">
+    {% if user.completed_purchases.all %}
+    {% for lot in user.completed_purchases.all %}
+    <div class="card m-2" style="width: 18rem;">
+        <img src="{{ lot.picture.url }}" class="card-img-top" alt="Oops...">
+        <div class="card-body">
+            <h5 class="card-title">{{ lot.title }}</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{% translate 'current price:'%} {{ lot.current_price }}</li>
+                <li class="list-group-item">{% translate 'start price:'%} {{ lot.start_price }}</li>
+                <li class="list-group-item">{% translate 'current buyer:'%} {{ lot.buyer }}</li>
+            </ul>
+            <a href="#" class="btn btn-primary">{% translate 'Go to lot'%}</a>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        {% translate 'Its empty here'%}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

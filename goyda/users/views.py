@@ -1,6 +1,5 @@
 from typing import Any
-from django.views.generic import FormView, RedirectView, ListView
-from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import FormView, RedirectView, ListView, DetailView
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from core.utils import DataMixin
@@ -82,3 +81,19 @@ class UsersPasswordChangeView(LoginRequiredMixin, DataMixin, PasswordChangeView)
         user.set_password(self.cleaned_data["new_password1"]) 
         if commit:
             user.save()
+            
+
+class UsersTrackPurchasesView(LoginRequiredMixin, DataMixin, DetailView):
+    model = User
+    context_object_name = 'user'
+    template_name = 'users/track_purchases.html'
+    login_url = 'users:login'
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context_mixin = self.get_default_context()
+        context.update(context_mixin)
+        return context
+    
+    def get_object(self, queryset=None):
+        return self.request.user 
