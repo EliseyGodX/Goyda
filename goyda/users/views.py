@@ -1,17 +1,19 @@
 from typing import Any
-from django.views.generic import FormView, RedirectView, ListView, DetailView
-from django.contrib.auth.views import PasswordChangeView
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 from core.utils import DataMixin
-from django.urls import reverse_lazy
-from django.views.decorators.csrf import csrf_protect
-from django.utils.decorators import method_decorator
-from users.forms import UserRegistrationForm, LoginUserForm, UsersPasswordChangeForm
 from django.contrib.auth import login, logout
-from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponseRedirect
-from users.models import User
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.csrf import csrf_protect
+from django.views.generic import DetailView, FormView, ListView, RedirectView
+from users.forms import (LoginUserForm, UserRegistrationForm,
+                         UsersPasswordChangeForm)
+from users.models import User
 
 
 @method_decorator(csrf_protect, name='dispatch')
@@ -19,6 +21,12 @@ class UsersLoginView(DataMixin, FormView):
     template_name = 'users/login.html'
     form_class = LoginUserForm
     success_url = reverse_lazy('general')
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context_mixin = self.get_default_context(title='Login')
+        context.update(context_mixin)
+        return context
 
     def form_valid(self, form):
         user = form.get_user()
@@ -59,7 +67,7 @@ class UsersListView(DataMixin, ListView):
     
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
-        context_mixin = self.get_default_context()
+        context_mixin = self.get_default_context(title='Browse')
         context.update(context_mixin)
         return context
     
@@ -72,7 +80,7 @@ class UsersPasswordChangeView(LoginRequiredMixin, DataMixin, PasswordChangeView)
 
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
-        context_mixin = self.get_default_context()
+        context_mixin = self.get_default_context(title='Change password')
         context.update(context_mixin)
         return context
     
@@ -82,7 +90,7 @@ class UsersPasswordChangeView(LoginRequiredMixin, DataMixin, PasswordChangeView)
         if commit:
             user.save()
             
-
+            
 class UsersTrackPurchasesView(LoginRequiredMixin, DataMixin, DetailView):
     model = User
     context_object_name = 'user'
@@ -91,7 +99,23 @@ class UsersTrackPurchasesView(LoginRequiredMixin, DataMixin, DetailView):
     
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
-        context_mixin = self.get_default_context()
+        context_mixin = self.get_default_context(title='Track purchases')
+        context.update(context_mixin)
+        return context
+    
+    def get_object(self, queryset=None):
+        return self.request.user 
+    
+    
+class UsersTrackSalesView(LoginRequiredMixin, DataMixin, DetailView):
+    model = User
+    context_object_name = 'user'
+    template_name = 'users/track_sales.html'
+    login_url = 'users:login'
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context_mixin = self.get_default_context(title='Track sales')
         context.update(context_mixin)
         return context
     

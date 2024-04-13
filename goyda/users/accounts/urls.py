@@ -1,5 +1,7 @@
 from django.urls import path
-from users.accounts.views import AccountsPersonalView, AccountsEditView, AccountsBrowseView
+from users.accounts.views import (AccountsBrowseView, AccountsEditView,
+                                  AccountsPersonalView)
+
 app_name = 'accounts'
 
 urlpatterns = [

@@ -1,11 +1,11 @@
-{% extends 'core/base.html' %}
-{% load i18n%}
+{% extends "core/base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
         <div class="card m-2" style="width: 38rem;">
-            <p class="h1">{% translate 'Personal account' %} @{{ user.username }}</p>
+            <p class="h1">{% translate "Personal account" %} @{{ user.username }}</p>
             <hr class="border border-primary border-1 opacity-50">
             <img src="{{ user.avatar.url }}" class="card-img-top" alt="Oops...">
             <hr class="border border-primary border-1 opacity-50">
@@ -13,16 +13,16 @@
                 <h5 class="card-title">{{ user.about }}</h5>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">{% translate 'First name: ' %}{{ user.first_name }}</li>
-                <li class="list-group-item">{% translate 'Last name: ' %}{{ user.last_name }}</li>
-                <li class="list-group-item">{% translate 'Email: ' %}{{ user.email }}</li>
-                <li class="list-group-item">{% translate 'Phone: ' %}{{ user.phone }}</li>
-                <li class="list-group-item">{% translate 'City: ' %}{{ user.city }}</li>
-                <li class="list-group-item">{% translate 'Age: ' %}{{ user.age }}</li>
-                <li class="list-group-item">{% translate 'Purchases made: ' %}{{ user.purchases }}</li>
-                <li class="list-group-item">{% translate 'Sales made: ' %}{{ user.sales }}</li>
+                <li class="list-group-item">{% translate "First name: " %}{{ user.first_name }}</li>
+                <li class="list-group-item">{% translate "Last name: " %}{{ user.last_name }}</li>
+                <li class="list-group-item">{% translate "Email: " %}{{ user.email }}</li>
+                <li class="list-group-item">{% translate "Phone: " %}{{ user.phone }}</li>
+                <li class="list-group-item">{% translate "City: " %}{{ user.city }}</li>
+                <li class="list-group-item">{% translate "Age: " %}{{ user.age }}</li>
+                <li class="list-group-item">{% translate "Purchases made: " %}{{ user.purchases }}</li>
+                <li class="list-group-item">{% translate "Sales made: " %}{{ user.sales }}</li>
             </ul>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

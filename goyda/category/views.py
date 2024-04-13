@@ -1,10 +1,11 @@
 from typing import Any
-from django.db.models.query import QuerySet
-from django.views.generic import ListView
-from django.shortcuts import get_object_or_404
+
 from category.models import Category
-from lots.models import Lots
 from core.utils import DataMixin
+from django.db.models.query import QuerySet
+from django.shortcuts import get_object_or_404
+from django.views.generic import ListView
+from lots.models import Lots
 
 
 class LotsByCategory(DataMixin, ListView):

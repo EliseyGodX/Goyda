@@ -1,13 +1,13 @@
-{% extends 'core/base.html' %}
-{% load i18n%}
+{% extends "core/base.html" %}
+{% load i18n %}
 
 {% block content %}
-<form method="post" action="{% url 'users:accounts:edit' %}" class="form" enctype="multipart/form-data">
-    {% csrf_token%}
+<form method="post" action="{% url "users:accounts:edit" %}" class="form" enctype="multipart/form-data">
+    {% csrf_token %}
     <div class="container">
         <div class="row justify-content-center">
             <div class="card m-2" style="width: 38rem;">
-                <p class="h1">{% translate 'Username:' %}</p>
+                <p class="h1">{% translate "Username:" %}</p>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="{{ form.username.id_for_label }}">@</span>
                     {{ form.username }}
@@ -16,46 +16,46 @@
                 <hr class="border border-primary border-1 opacity-50">
                 <img src="{{ user.avatar.url }}" class="card-img-top" alt="Oops...">
                 <div class="col-md">
-                    <label for="{{ form.avatar.id_for_label }}" class="form-label">{% translate 'Avatar' %}</label>
+                    <label for="{{ form.avatar.id_for_label }}" class="form-label">{% translate "Avatar" %}</label>
                     {{ form.avatar }}
                 </div>
                 <hr class="border border-primary border-1 opacity-50">
 
                 <div class="card-body">
                     <div class="input-group">
-                        <span class="input-group-text" id="{{ form.about.id_for_label }}">{% translate 'About:'%}</span>
+                        <span class="input-group-text" id="{{ form.about.id_for_label }}">{% translate "About:" %}</span>
                         {{ form.about }}
                     </div>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <div class="input-group">
-                            <span class="input-group-text">{% translate 'First and last name:' %}</span>
+                            <span class="input-group-text">{% translate "First and last name:" %}</span>
                             {{ form.first_name }}
                             {{ form.last_name }}
                         </div>
                     </li>
                     <li class="list-group-item">
                         <div class="input-group">
-                            <span class="input-group-text" id="{{ form.email.id_for_label }}">{% translate 'Email'%}</span>
+                            <span class="input-group-text" id="{{ form.email.id_for_label }}">{% translate "Email" %}</span>
                             {{ form.email }}
                         </div>
                     </li>
                     <li class="list-group-item">
                         <div class="input-group">
-                            <span class="input-group-text" id="{{ form.phone.id_for_label }}">{% translate 'Phone'%}</span>
+                            <span class="input-group-text" id="{{ form.phone.id_for_label }}">{% translate "Phone" %}</span>
                             {{ form.phone }}
                         </div>
                     </li>
                     <li class="list-group-item">
                         <div class="input-group">
-                            <span class="input-group-text" id="{{ form.city.id_for_label }}">{% translate 'City' %}</span>
+                            <span class="input-group-text" id="{{ form.city.id_for_label }}">{% translate "City" %}</span>
                             {{ form.city }}
                         </div>
                     </li>
                     <li class="list-group-item">
                         <div class="input-group">
-                            <span class="input-group-text" id="{{ form.age.id_for_label }}">{% translate 'Age' %}</span>
+                            <span class="input-group-text" id="{{ form.age.id_for_label }}">{% translate "Age" %}</span>
                             {{ form.age }}
                         </div>
                     </li>
@@ -70,15 +70,15 @@
                         </ul>
                         {% endif %}
                         <div class="row justify-content-center">
-                            <button type="submit" class="btn btn-primary">{% translate 'Save' %}</button>
+                            <button type="submit" class="btn btn-primary">{% translate "Save" %}</button>
                         </div>
                     </li>
                 </ul>
                 <div class="card-body">
-                    <a href="#" class="card-link">{% translate 'Change password' %}</a>
+                    <a href="#" class="card-link">{% translate "Change password" %}</a>
                 </div>
             </div>
         </div>
     </div>
 </form>
-{% endblock %}
+{% endblock content %}

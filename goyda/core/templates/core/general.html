@@ -1,22 +1,19 @@
-{% extends 'core/base.html' %}
-{% load i18n%}
-
+{% extends "core/base.html" %}
+{% load i18n %}
 {% block content %}
-
-<hr class="border border-primary border-1 opacity-50">
-<h1 class="display-3" style="text-align: center;">{% translate 'Recent lots' %}</h1>
-<hr class="border border-primary border-1 opacity-50">
-
-<div class="d-flex flex-wrap">
-   {% for lot in lots %}
-   <div class="card m-2" style="width: 18rem;">
-       <img src="{{ lot.picture.url }}" class="card-img-top" alt="Oops...">
-       <div class="card-body">
-           <h5 class="card-title">{{ lot.title }}</h5>
-           <h6 class="card-title">{% translate 'current price:'%} {{ lot.current_price }}</h6>
-           <a href="#" class="btn btn-primary">{% translate 'Go to lot'%}</a>
-       </div>
-   </div>
-   {% endfor %}
-</div>
-{% endblock %}
+  <hr class="border border-primary border-1 opacity-50" />
+  <h1 class="display-3" style="text-align: center;">{% translate "Recent lots" %}</h1>
+  <hr class="border border-primary border-1 opacity-50" />
+  <div class="d-flex flex-wrap">
+    {% for lot in lots %}
+      <div class="card m-2" style="width: 18rem;">
+        <img src="{{ lot.picture.url }}" class="card-img-top" alt="Oops..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ lot.title }}</h5>
+          <h6 class="card-title">{% translate "current price:" %} {{ lot.current_price }}</h6>
+          <a href="#" class="btn btn-primary">{% translate "Go to lot" %}</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock content %}

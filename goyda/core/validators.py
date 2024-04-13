@@ -1,9 +1,10 @@
-from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
-from django.utils.deconstruct import deconstructible
-from typing import Optional
-import re
 import abc
+import re
+from typing import Optional
+
+from django.core.exceptions import ValidationError
+from django.utils.deconstruct import deconstructible
+from django.utils.translation import gettext_lazy as _
 
 
 @deconstructible

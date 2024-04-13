@@ -1,123 +1,155 @@
-{% load i18n%}
-
-<!doctype html>
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>{{ title }}</title>
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-
-<body>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-      crossorigin="anonymous"></script>
-
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"></script>
-
-   <div class="modal fade" id="balanceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <head>
+    <meta charset="utf-8"
+          name="viewport"
+          content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="goyda, auction" />
+    <meta name="description" content="GOYDA" />
+    <title>{{ title }}</title>
+    <link rel="shortcut icon"
+          type="image/x-icon"
+          href="{% static 'favicon.ico' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous" />
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <div class="modal fade"
+         id="balanceModal"
+         tabindex="-1"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
       <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h1 class="modal-title fs-5" id="exampleModalLabel">{% translate 'Replenishment of the balance' %}</h1>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               {% translate 'To top up your balance, follow the following instructions:' %}
-            </div>
-            <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate 'Close' %}</button>
-            </div>
-         </div>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">{% translate "Replenishment of the balance" %}</h1>
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+          </div>
+          <div class="modal-body">{% translate "To top up your balance, follow the following instructions:" %}</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate "Close" %}</button>
+          </div>
+        </div>
       </div>
-   </div>
-
-
-
-
-   <nav class="navbar bg-primary" data-bs-theme="dark">
+    </div>
+    <nav class="navbar bg-primary" data-bs-theme="dark">
       <div class="container-fluid">
-         <a class="navbar-brand" href="{% url 'general' %}">Goyda</a>
-         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-         </button>
-         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-               <li class="nav-item">
-                  {% if request.user.is_authenticated %}
-                  <a href="{% url 'users:accounts:personal' %}" class="btn btn-primary">{% translate 'Account' %}</a>
-                  <a href="{% url 'users:logout' %}" class="btn btn-primary">{% translate 'Logout' %}</a>
-                  {% else %}
-                  <a href="{% url 'users:login' %}" class="btn btn-primary">{% translate 'Login' %}</a>
-                  {% endif %}
-               </li>
-               {% if request.user.is_authenticated %}
-               <li class="nav-item">
-                  <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#balanceModal">
-                     {% translate 'Balance' %}: {{ user.balance }}
-                  </a>
-               </li>
-               {% endif %}
-               <li class="nav-item">
-                  <a href="{% url 'users:users' %}" class="btn btn-primary">{% translate 'Users' %}</a>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                     aria-expanded="false">
-                     {% translate 'Categories' %}
-                  </a>
-                  <ul class="dropdown-menu">
-                     {% for category in categories %}
-                     <li><a class="dropdown-item" href="{% url 'category:category' category_slug=category.slug %}">{{category.name }}</a></li>
-                     {% endfor %}
-                     <li>
-                        <hr class="dropdown-divider">
-                     </li>
-                     <li><a class="dropdown-item" href="{% url 'category:category' category_slug='another' %}">{% translate 'Another' %}</a></li>
-                  </ul>
-               </li>
-            </ul>
-         </div>
+        <a class="navbar-brand" href="{% url 'general' %}">Goyda</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              {% if request.user.is_authenticated %}
+                <a href="{% url 'users:accounts:personal' %}" class="btn btn-primary">{% translate "Account" %}</a>
+                <a href="{% url 'users:logout' %}" class="btn btn-primary">{% translate "Logout" %}</a>
+              {% else %}
+                <a href="{% url 'users:login' %}" class="btn btn-primary">{% translate "Login" %}</a>
+              {% endif %}
+            </li>
+            {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a href="#"
+                   class="btn btn-primary"
+                   data-bs-toggle="modal"
+                   data-bs-target="#balanceModal">{% translate "Balance" %}: {{ user.balance }}</a>
+              </li>
+            {% endif %}
+            <li class="nav-item">
+              <a href="{% url 'users:users' %}" class="btn btn-primary">{% translate "Users" %}</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle"
+                 href="#"
+                 role="button"
+                 data-bs-toggle="dropdown"
+                 aria-expanded="false">{% translate "Categories" %}</a>
+              <ul class="dropdown-menu">
+                {% for category in categories %}
+                  <li>
+                    <a class="dropdown-item"
+                       href="{% url 'category:category' category_slug=category.slug %}">{{ category.name }}</a>
+                  </li>
+                {% endfor %}
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a class="dropdown-item"
+                     href="{% url 'category:category' category_slug='another' %}">{% translate "Another" %}</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
-   </nav>
-
-
-   <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    </nav>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-         {% if request.user.is_authenticated %}
-         <nav aria-label="Page navigation example">
+        {% if request.user.is_authenticated %}
+          <nav aria-label="Page navigation example">
             <ul class="pagination">
-               <li class="page-item"><a class="page-link" href="#">{% translate 'Track purchases' %} <span
-                        class="badge text-bg-danger">1</span></a></li>
-               <li class="page-item"><a class="page-link" href="#">{% translate 'Track sales' %} <span
-                        class="badge text-bg-secondary">0</span></a></li>
-               <li class="page-item"><a class="page-link" href="#">{% translate 'Sell' %}</a></li>
+              <li class="page-item">
+                <a class="page-link" href="{% url 'users:track_purchases' %}">
+                  {% translate "Track purchases" %}
+                  {% if user.active_purchases.all %}
+                    <span class="badge text-bg-danger">{{ user.active_purchases.count }}</span>
+                  {% else %}
+                    <span class="badge text-bg-secondary">0</span>
+                  {% endif %}
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="{% url 'users:track_sales' %}">{% translate "Track sales" %}
+                  {% if user.active_sell.all %}
+                    <span class="badge text-bg-danger">{{ user.active_sell.count }}</span>
+                  {% else %}
+                    <span class="badge text-bg-secondary">0</span>
+                  {% endif %}
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">{% translate "Sell" %}</a>
+              </li>
             </ul>
-         </nav>
-         {% endif %}
-         <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="{% translate 'Search by all categories' %}" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">{% translate 'Search' %}</button>
-         </form>
+          </nav>
+        {% endif %}
+        <form class="d-flex" role="search">
+          <input class="form-control me-2"
+                 type="search"
+                 placeholder="{% translate "Search by all categories" %}"
+                 aria-label="Search" />
+          <button class="btn btn-outline-success" type="submit">{% translate "Search" %}</button>
+        </form>
       </div>
-      </div>
-   </nav>
-
-
-   {% block content %} {% endblock %}
-
-</body>
-
+    </nav>
+    {% block content %}
+    {% endblock content %}
+  </body>
 </html>

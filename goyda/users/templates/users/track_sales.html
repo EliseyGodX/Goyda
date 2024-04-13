@@ -1,14 +1,14 @@
 {% extends "users/base.html" %}
 {% load i18n %}
 {% block title %}
-    {% translate "Track purchases" %}
+    {% translate "Track sales" %}
 {% endblock title %}
 {% block content_ %}
     <hr class="border border-primary border-1 opacity-50">
     <h1 class="display-3" style="text-align: center;">{% translate "Active" %}</h1>
     <div class="d-flex flex-wrap">
-        {% if user.active_purchases.all %}
-            {% for lot in user.active_purchases.all %}
+        {% if user.active_sell.all %}
+            {% for lot in user.active_sell.all %}
                 <div class="card m-2" style="width: 18rem;">
                     <img src="{{ lot.picture.url }}" class="card-img-top" alt="Oops...">
                     <div class="card-body">
@@ -29,8 +29,8 @@
     <hr class="border border-primary border-1 opacity-50">
     <h1 class="display-3" style="text-align: center;">{% translate "Completed" %}</h1>
     <div class="d-flex flex-wrap">
-        {% if user.completed_purchases.all %}
-            {% for lot in user.completed_purchases.all %}
+        {% if user.completed_sell.all %}
+            {% for lot in user.completed_sell.all %}
                 <div class="card m-2" style="width: 18rem;">
                     <img src="{{ lot.picture.url }}" class="card-img-top" alt="Oops...">
                     <div class="card-body">

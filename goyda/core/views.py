@@ -1,7 +1,8 @@
 from typing import Any
+
+from core.utils import DataMixin
 from django.views.generic import ListView
 from lots.models import Lots
-from core.utils import DataMixin
 
 
 class General(DataMixin, ListView):
