@@ -118,8 +118,8 @@
               <li class="page-item">
                 <a class="page-link" href="{% url 'users:track_purchases' %}">
                   {% translate "Track purchases" %}
-                  {% if user.active_purchases.all %}
-                    <span class="badge text-bg-danger">{{ user.active_purchases.count }}</span>
+                  {% if active_purchases > 0 %}
+                    <span class="badge text-bg-danger">{{ active_purchases }}</span>
                   {% else %}
                     <span class="badge text-bg-secondary">0</span>
                   {% endif %}
@@ -127,8 +127,8 @@
               </li>
               <li class="page-item">
                 <a class="page-link" href="{% url 'users:track_sales' %}">{% translate "Track sales" %}
-                  {% if user.active_sell.all %}
-                    <span class="badge text-bg-danger">{{ user.active_sell.count }}</span>
+                  {% if active_sell > 0 %}
+                    <span class="badge text-bg-danger">{{ active_sell }}</span>
                   {% else %}
                     <span class="badge text-bg-secondary">0</span>
                   {% endif %}
