@@ -3,17 +3,18 @@ from typing import Optional
 from django.core.cache import cache
 from django.core.exceptions import EmptyResultSet
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db import models
 from django.utils.functional import cached_property
 
 
 class CachedPaginator(Paginator):
     
-    def __init__(self, object_list, per_page, cache_key, model, model_fields, orphans=0, allow_empty_first_page=True, cache_timeout=None):
+    def __init__(self, object_list, per_page, 
+                 cache_key: str, cache_timeout: Optional[int] = None,
+                 orphans=0, allow_empty_first_page=True):
         super().__init__(object_list, per_page, orphans, allow_empty_first_page)
-        self.model = model
-        self.cache_timeout = 60 * 60
         self.cache_key = cache_key
-        self.model_fields = model_fields
+        self.cache_timeout = cache_timeout
         
     @cached_property
     def count(self):
@@ -22,7 +23,7 @@ class CachedPaginator(Paginator):
             count = self.update_cache('count')
         return count
     
-    def page(self, number):
+    def page(self, number: int):
         number = self.validate_number_handler(number)
         data = cache.get(self.cache_key.format(number))
         if data is None:
@@ -30,7 +31,7 @@ class CachedPaginator(Paginator):
         return data
     
     def update_cache(self, get: Optional[str] = None):
-        data = list(self.model.objects.values(*self.model_fields).all())
+        data = list(self.object_list.all())
         if data is not None:
             cache.set(self.cache_key.format('count'), len(data), self.cache_timeout)
             for page in range(self.num_pages):
@@ -41,7 +42,7 @@ class CachedPaginator(Paginator):
         else:
             assert EmptyResultSet('cache cannot be updated due to an empty queryset')
         
-    def get_page_for_cache(self, number):
+    def get_page_for_cache(self, number: int):
         number = self.validate_number_handler(number)
         bottom = (number - 1) * self.per_page
         top = bottom + self.per_page
@@ -49,7 +50,7 @@ class CachedPaginator(Paginator):
             top = self.count
         return self._get_page(self.object_list[bottom:top], number, self)
     
-    def validate_number_handler(self, number):
+    def validate_number_handler(self, number: int):
         try:
             number = self.validate_number(number)
         except PageNotAnInteger:

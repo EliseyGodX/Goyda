@@ -64,11 +64,12 @@ class UsersRegistrationView(DataMixin, FormView):
     
 class UsersListView(DataMixin, ListView):
     queryset = User.objects.values('username', 'first_name', 'last_name', 'city').order_by('-date_joined')
-    paginate_by = 10
     context_object_name = 'users'
     template_name = 'users/users.html'
+    paginate_by = 10
     paginator_class = CachedPaginator
     cache_key = 'cache_page_{}'
+    cache_timeout = 12 * 60
     
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
@@ -83,9 +84,8 @@ class UsersListView(DataMixin, ListView):
             queryset,
             per_page,
             orphans=orphans,
-            cache_key=self.cache_key, 
-            model=User,  # fix!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-            model_fields=('username', 'first_name', 'last_name', 'city',),  # fix!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+            cache_key=self.cache_key,
+            cache_timeout=self.cache_timeout,
             allow_empty_first_page=allow_empty_first_page,
             **kwargs,
         )
