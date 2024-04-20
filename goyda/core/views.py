@@ -1,7 +1,7 @@
 from core.utils import DataMixin
+from django.core.cache import cache
 from django.views.generic import ListView
 from lots.models import Lots
-from users.models import User
 
 
 class General(DataMixin, ListView):
@@ -15,4 +15,8 @@ class General(DataMixin, ListView):
         return context
     
     def get_queryset(self):
-        return Lots.objects.only('title', 'picture', 'current_price')
+        lots = cache.get('lots')
+        if not lots:
+            lots = list(Lots.objects.all().defer('title', 'picture', 'current_price'))
+            cache.set('lots', lots, timeout=60*2)
+        return lots

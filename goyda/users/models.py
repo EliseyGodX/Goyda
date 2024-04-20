@@ -23,9 +23,14 @@ class User(AbstractUser):
     avatar = models.ImageField(_("user's avatar"), upload_to='avatars', default='avatars/default.jpg')
     phone = models.CharField(_("the user's phone number"), validators=[PhoneNumberValidator()], blank=True, max_length=19)
     
-    active_lots = models.ManyToManyField('lots.Lots', related_name='active_lots')
-    archive_lots = models.ManyToManyField('lots.ArchiveLots', related_name='archive_lots')
-    active_purchases = models.ManyToManyField('lots.Lots', related_name='active_purchases')
-    active_sell = models.ManyToManyField('lots.Lots', related_name='active_sell')
-    completed_purchases = models.ManyToManyField('lots.ArchiveLots', related_name='complete_purchases')
-    completed_sell = models.ManyToManyField('lots.ArchiveLots', related_name='complete_sell')
+    active_lots = models.ManyToManyField('lots.Lots', related_name='active_lots', blank=True)
+    archive_lots = models.ManyToManyField('lots.ArchiveLots', related_name='archive_lots', blank=True)
+    active_purchases = models.ManyToManyField('lots.Lots', related_name='active_purchases', blank=True)
+    active_sell = models.ManyToManyField('lots.Lots', related_name='active_sell', blank=True)
+    completed_purchases = models.ManyToManyField('lots.ArchiveLots', related_name='complete_purchases', blank=True)
+    completed_sell = models.ManyToManyField('lots.ArchiveLots', related_name='complete_sell', blank=True)
+    
+    class Meta:
+        verbose_name = _("user")
+        verbose_name_plural = _("users")
+        ordering = ("-date_joined",)

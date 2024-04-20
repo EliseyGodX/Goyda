@@ -1,9 +1,11 @@
 from typing import Any
 
+from core.paginators import CachedPaginator
 from core.utils import DataMixin
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
+from django.core.cache import cache
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -61,15 +63,33 @@ class UsersRegistrationView(DataMixin, FormView):
     
     
 class UsersListView(DataMixin, ListView):
-    model = User
+    queryset = User.objects.values('username', 'first_name', 'last_name', 'city').order_by('-date_joined')
+    paginate_by = 10
     context_object_name = 'users'
     template_name = 'users/users.html'
+    paginator_class = CachedPaginator
+    cache_key = 'cache_page_{}'
     
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
         context_mixin = self.get_default_context(title='Browse')
         context.update(context_mixin)
         return context
+
+    def get_paginator(
+        self, queryset, per_page, orphans=0, allow_empty_first_page=True, **kwargs
+    ):
+        return self.paginator_class(
+            queryset,
+            per_page,
+            orphans=orphans,
+            cache_key=self.cache_key, 
+            model=User,  # fix!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+            model_fields=('username', 'first_name', 'last_name', 'city',),  # fix!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+            allow_empty_first_page=allow_empty_first_page,
+            **kwargs,
+        )
+    
     
     
 class UsersPasswordChangeView(LoginRequiredMixin, DataMixin, PasswordChangeView):
