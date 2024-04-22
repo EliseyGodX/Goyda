@@ -1,5 +1,4 @@
 from django.contrib import admin
-from lots.models import ArchiveLots, Lots
+from lots.models import Lot
 
-admin.site.register(Lots)
-admin.site.register(ArchiveLots)
+admin.site.register(Lot)

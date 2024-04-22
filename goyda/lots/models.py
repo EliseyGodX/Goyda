@@ -1,51 +1,32 @@
-import uuid
-
-from category.models import Category
-from core.validators import CityValidator, NameValidator
+from core.validators import NameValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from users.models import User
+from uuid_extensions import uuid7
 
 
-class BaseLots(models.Model):
+class Lot(models.Model):
     
-    def _get_default_category():
-        return Category.objects.get(name='Another')
-    
-    ID = models.UUIDField(primary_key=True, db_index=True, default=uuid.uuid4)
-    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='%(app_label)s_%(class)s_seller', verbose_name=_('seller'))
-    buyer = models.ForeignKey(User, on_delete=models.SET_DEFAULT, null=True, default=None, blank=True, related_name='%(app_label)s_%(class)s_buyer', verbose_name=_('buyer'))
-    title = models.CharField(_("lot name"), max_length=24, validators=[NameValidator(only_letters=False)])
-    picture = models.ImageField(_("lot picture"), upload_to='lots_imgs', default='lots_imgs/default.jpg')
-    category = models.ForeignKey(Category, on_delete=models.SET(_get_default_category), verbose_name=_('lot category'))
-    start_price = models.PositiveIntegerField(_('the start price of the lot'))
-    description = models.TextField(_('description of the lot'), blank=True, default=None)
-    city = models.CharField(_('sellers city'), max_length=48, validators=[CityValidator()])
+    id = models.UUIDField(primary_key=True, default=uuid7())
+    title = models.CharField(_('Title'), max_length=24, validators=[NameValidator()], db_index=True)
+    seller = models.ForeignKey('users.User', on_delete=models.PROTECT, db_index=True,
+                               related_name='sellers', verbose_name=_('Seller'))
+    start_price = models.PositiveBigIntegerField(_('Start price'))
+    picture = models.ImageField(_('Picture'), upload_to='lots_imgs', default='lots_imgs/default.jpg')
+    category = models.ForeignKey('categories.Category', on_delete=models.PROTECT, db_index=True,
+                                 related_name='categories', verbose_name=_('Lot category'))
+    description = models.TextField(_('Description'), blank=True, null=True)
+    city = models.ForeignKey('core.City', on_delete=models.PROTECT, db_index=True, 
+                             related_name='cities', verbose_name='City')
     date_of_placement = models.DateTimeField(_('date of placement'), auto_now_add=True)
     date_of_end = models.DateField(_('date of end'))
-
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        abstract = True
-    
-    
-class Lots(BaseLots):
-    
-    current_price = models.PositiveIntegerField(_('the current price of the lot'))
     
     class Meta:
         verbose_name = _('Lot')
         verbose_name_plural = _('Lots')
-        ordering = ['-date_of_placement']
-    
-
-class ArchiveLots(BaseLots):
-    
-    finally_price = models.PositiveIntegerField(_('the finally price of the lot'))
-    
-    class Meta:
-        verbose_name = _('Arhcive Lot')
-        verbose_name_plural = _('Archive Lots')
-        ordering = ['-date_of_placement']
+        db_table_comment = (
+            '''The model contains information about the lot. 
+            See its status in "trading.TradeLog", see the bids for it in "bids.Bid"'''
+            )
+        
+    def __str__(self):
+        return self.title

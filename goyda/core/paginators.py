@@ -3,7 +3,6 @@ from typing import Optional
 from django.core.cache import cache
 from django.core.exceptions import EmptyResultSet
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.db import models
 from django.utils.functional import cached_property
 
 

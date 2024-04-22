@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     
     'core',
     'users',
-    'category',
+    'categories',
     'lots',
+    'bids',
+    'trading'
 ]
 
 MIDDLEWARE = [
@@ -87,8 +89,12 @@ WSGI_APPLICATION = 'goyda.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'goyda_db',
+        'USER': 'postgres',
+        'PASSWORD': 'EliseyGodX',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
