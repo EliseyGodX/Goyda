@@ -1,4 +1,4 @@
-from category.views import LotsByCategory
+from categories.views import LotsByCategory
 from django.urls import path
 
 app_name = 'category'

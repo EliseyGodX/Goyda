@@ -1,3 +1,4 @@
 from django.contrib import admin
+from trading.models import TradeLog
 
-# Register your models here.
+admin.site.register(TradeLog)

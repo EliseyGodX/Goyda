@@ -63,7 +63,7 @@ class UsersRegistrationView(DataMixin, FormView):
     
     
 class UsersListView(DataMixin, ListView):
-    queryset = User.objects.values('username', 'first_name', 'last_name', 'city').order_by('-date_joined')
+    queryset = User.objects.values('username', 'first_name', 'last_name').order_by('-date_joined')
     context_object_name = 'users'
     template_name = 'users/users.html'
     paginate_by = 10
@@ -89,7 +89,6 @@ class UsersListView(DataMixin, ListView):
             allow_empty_first_page=allow_empty_first_page,
             **kwargs,
         )
-    
     
     
 class UsersPasswordChangeView(LoginRequiredMixin, DataMixin, PasswordChangeView):

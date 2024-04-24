@@ -97,13 +97,6 @@
                        href="{% url 'category:category' category_slug=category.slug %}">{{ category.name }}</a>
                   </li>
                 {% endfor %}
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li>
-                  <a class="dropdown-item"
-                     href="{% url 'category:category' category_slug='another' %}">{% translate "Another" %}</a>
-                </li>
               </ul>
             </li>
           </ul>
@@ -118,8 +111,8 @@
               <li class="page-item">
                 <a class="page-link" href="{% url 'users:track_purchases' %}">
                   {% translate "Track purchases" %}
-                  {% if active_purchases > 0 %}
-                    <span class="badge text-bg-danger">{{ active_purchases }}</span>
+                  {% if purchases > 0 %}
+                    <span class="badge text-bg-danger">{{ purchases }}</span>
                   {% else %}
                     <span class="badge text-bg-secondary">0</span>
                   {% endif %}
@@ -127,8 +120,8 @@
               </li>
               <li class="page-item">
                 <a class="page-link" href="{% url 'users:track_sales' %}">{% translate "Track sales" %}
-                  {% if active_sell > 0 %}
-                    <span class="badge text-bg-danger">{{ active_sell }}</span>
+                  {% if sell > 0 %}
+                    <span class="badge text-bg-danger">{{ sell }}</span>
                   {% else %}
                     <span class="badge text-bg-secondary">0</span>
                   {% endif %}

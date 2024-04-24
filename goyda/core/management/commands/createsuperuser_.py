@@ -1,3 +1,4 @@
+from core.models import City
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.utils import timezone
@@ -18,10 +19,10 @@ class Command(BaseCommand):
             'is_staff': True,
             'date_joined': timezone.now(),
             'first_name': 'God',
-            'last_name': 'X',
+            'last_name': 'XX',
             'email': 'email.email@email.email',
             'age': 54,
-            'city': 'godixerskaya'
+            'city': City.objects.get(name='Чернянка')
         }
 
         User.objects.create_superuser(**user_data)

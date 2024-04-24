@@ -4,16 +4,73 @@
   <hr class="border border-primary border-1 opacity-50" />
   <h1 class="display-3" style="text-align: center;">{% translate "Recent lots" %}</h1>
   <hr class="border border-primary border-1 opacity-50" />
-  <div class="d-flex flex-wrap">
-    {% for lot in lots %}
-      <div class="card m-2" style="width: 18rem;">
-        <img src="{{ lot.picture.url }}" class="card-img-top" alt="Oops..." />
-        <div class="card-body">
-          <h5 class="card-title">{{ lot.title }}</h5>
-          <h6 class="card-title">{% translate "current price:" %} {{ lot.current_price }}</h6>
-          <a href="#" class="btn btn-primary">{% translate "Go to lot" %}</a>
-        </div>
+  {% for category, lots in general_view.items %}
+    <div class="container">
+      <div class="row justify-content-center">
+        <h2>{{ category }}</h2>
       </div>
-    {% endfor %}
-  </div>
+    </div>
+    <div id="carouselExampleControls"
+         class="carousel carousel-dark slide"
+         data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="card-wrapper container-sm d-flex  justify-content-around">
+            {% for lot in lots.pages_0 %}
+              <div class="card m-2" style="width: 18rem;">
+                <img src="{{ lot.lot.picture.url }}" class="card-img-top" alt="Oops..." />
+                <div class="card-body">
+                  <h5 class="card-title">{{ lot.lot.title }}</h5>
+                  <h6 class="card-title">{% translate "current price:" %} {{ lot.current_price }}</h6>
+                  <a href="#" class="btn btn-primary">{% translate "Go to lot" %}</a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card-wrapper container-sm d-flex   justify-content-around">
+            {% for lot in lots.pages_4 %}
+              <div class="card m-2" style="width: 18rem;">
+                <img src="{{ lot.lot.picture.url }}" class="card-img-top" alt="Oops..." />
+                <div class="card-body">
+                  <h5 class="card-title">{{ lot.lot.title }}</h5>
+                  <h6 class="card-title">{% translate "current price:" %} {{ lot.current_price }}</h6>
+                  <a href="#" class="btn btn-primary">{% translate "Go to lot" %}</a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card-wrapper container-sm d-flex  justify-content-around">
+            {% for lot in lots.pages_8 %}
+              <div class="card m-2" style="width: 18rem;">
+                <img src="{{ lot.lot.picture.url }}" class="card-img-top" alt="Oops..." />
+                <div class="card-body">
+                  <h5 class="card-title">{{ lot.lot.title }}</h5>
+                  <h6 class="card-title">{% translate "current price:" %} {{ lot.current_price }}</h6>
+                  <a href="#" class="btn btn-primary">{% translate "Go to lot" %}</a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <button class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExampleControls"
+                data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  {% endfor %}
 {% endblock content %}

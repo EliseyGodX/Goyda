@@ -1,20 +1,20 @@
 from typing import Any
 
-from category.models import Category
+from categories.models import Category
 from core.utils import DataMixin
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
-from lots.models import Lots
+from lots.models import Lot
 
 
 class LotsByCategory(DataMixin, ListView):
-    model = Lots
+    model = Lot
     context_object_name = 'lots'
     template_name = 'category/category.html'
     
     def get_queryset(self) -> QuerySet[Any]:
-        return Lots.objects.filter(category__slug=self.kwargs['category_slug'])
+        return Lot.objects.filter(category__slug=self.kwargs['category_slug'])
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)

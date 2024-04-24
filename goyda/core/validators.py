@@ -42,10 +42,11 @@ class CustomValidator(abc.ABC):
                 raise ValueError(self.error_message['typeError'].format('max_lenght'))
         
     def len_validators_in_call(self, parameter):
-        if len(parameter) > self.max_lenght:
-            raise ValidationError(self.error_message['max_lengthError'].format(self.max_lenght), code=self.code)
-        elif len(parameter) < self.min_lenght:
+        if len(parameter) < self.min_lenght:
             raise ValidationError(self.error_message['min_lengthError'].format(self.min_lenght), code=self.code)
+        if self.max_lenght is not None:
+            if len(parameter) > self.max_lenght:
+                raise ValidationError(self.error_message['max_lengthError'].format(self.max_lenght), code=self.code)
         
     @abc.abstractmethod
     def __call__(self, data):
@@ -58,7 +59,7 @@ class NameValidator(CustomValidator):
     
     def __init__(self, min_lenght: int = 2, max_lenght: Optional[int] = None,
                  change_error_message:  Optional[list[tuple]] = None,
-                 code: str = code, only_letters: bool = True):
+                 code: str = code, only_letters: bool = False):
         super().__init__(change_error_message, code)
         self.len_validators_in_init(min_lenght, max_lenght)
         self.min_lenght = min_lenght
