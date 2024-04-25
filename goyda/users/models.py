@@ -13,7 +13,7 @@ class User(AbstractUser):
     last_name = models.CharField(_("Last name"), max_length=48, validators=[NameValidator(only_letters=True)])
     email = models.EmailField(_("Email address"))
     
-    avatar = models.ImageField(_("Avatar"), upload_to='avatars', default='avatars/default.jpg')
+    avatar = models.ImageField(_("Avatar"), upload_to='avatars', default='default/default_avatar.jpg')
     city = models.ForeignKey('core.City', on_delete=models.PROTECT, db_index=True,
                              related_name='user_cities', verbose_name=_("City"))
     age = models.PositiveSmallIntegerField(_("Age"), validators=[MaxValueValidator(100)])

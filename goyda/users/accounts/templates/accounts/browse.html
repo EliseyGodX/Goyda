@@ -17,10 +17,8 @@
                 <li class="list-group-item">{% translate "Last name: " %}{{ user.last_name }}</li>
                 <li class="list-group-item">{% translate "Email: " %}{{ user.email }}</li>
                 <li class="list-group-item">{% translate "Phone: " %}{{ user.phone }}</li>
-                <li class="list-group-item">{% translate "City: " %}{{ user.city }}</li>
+                <li class="list-group-item">{% translate "City: " %}{{ full_address }}</li>
                 <li class="list-group-item">{% translate "Age: " %}{{ user.age }}</li>
-                <li class="list-group-item">{% translate "Purchases made: " %}{{ user.purchases }}</li>
-                <li class="list-group-item">{% translate "Sales made: " %}{{ user.sales }}</li>
             </ul>
         </div>
     </div>

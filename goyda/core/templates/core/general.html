@@ -10,7 +10,7 @@
         <h2>{{ category }}</h2>
       </div>
     </div>
-    <div id="carouselExampleControls"
+    <div id="carousel_{{ category|slugify }}"
          class="carousel carousel-dark slide"
          data-bs-ride="carousel">
       <div class="carousel-inner">
@@ -18,7 +18,11 @@
           <div class="card-wrapper container-sm d-flex  justify-content-around">
             {% for lot in lots.pages_0 %}
               <div class="card m-2" style="width: 18rem;">
-                <img src="{{ lot.lot.picture.url }}" class="card-img-top" alt="Oops..." />
+                <img src="{{ lot.lot.picture.url }}"
+                     class="card-img-top"
+                     width="280"
+                     height="180"
+                     alt="Oops..." />
                 <div class="card-body">
                   <h5 class="card-title">{{ lot.lot.title }}</h5>
                   <h6 class="card-title">{% translate "current price:" %} {{ lot.current_price }}</h6>
@@ -32,7 +36,11 @@
           <div class="card-wrapper container-sm d-flex   justify-content-around">
             {% for lot in lots.pages_4 %}
               <div class="card m-2" style="width: 18rem;">
-                <img src="{{ lot.lot.picture.url }}" class="card-img-top" alt="Oops..." />
+                <img src="{{ lot.lot.picture.url }}"
+                     class="card-img-top"
+                     width="280"
+                     height="180"
+                     alt="Oops..." />
                 <div class="card-body">
                   <h5 class="card-title">{{ lot.lot.title }}</h5>
                   <h6 class="card-title">{% translate "current price:" %} {{ lot.current_price }}</h6>
@@ -46,7 +54,11 @@
           <div class="card-wrapper container-sm d-flex  justify-content-around">
             {% for lot in lots.pages_8 %}
               <div class="card m-2" style="width: 18rem;">
-                <img src="{{ lot.lot.picture.url }}" class="card-img-top" alt="Oops..." />
+                <img src="{{ lot.lot.picture.url }}"
+                     class="card-img-top"
+                     width="280"
+                     height="180"
+                     alt="Oops..." />
                 <div class="card-body">
                   <h5 class="card-title">{{ lot.lot.title }}</h5>
                   <h6 class="card-title">{% translate "current price:" %} {{ lot.current_price }}</h6>
@@ -58,14 +70,14 @@
         </div>
         <button class="carousel-control-prev"
                 type="button"
-                data-bs-target="#carouselExampleControls"
+                data-bs-target="#carousel_{{ category|slugify }}"
                 data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
         <button class="carousel-control-next"
                 type="button"
-                data-bs-target="#carouselExampleControls"
+                data-bs-target="#carousel_{{ category|slugify }}"
                 data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>

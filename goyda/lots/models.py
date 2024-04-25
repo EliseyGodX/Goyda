@@ -11,7 +11,7 @@ class Lot(models.Model):
     seller = models.ForeignKey('users.User', on_delete=models.PROTECT, db_index=True,
                                related_name='sellers', verbose_name=_('Seller'))
     start_price = models.PositiveBigIntegerField(_('Start price'))
-    picture = models.ImageField(_('Picture'), upload_to='lots_imgs', default='lots_imgs/default.jpg')
+    picture = models.ImageField(_('Picture'), upload_to='lots_imgs', default='default/default_lot.jpg')
     category = models.ForeignKey('categories.Category', on_delete=models.PROTECT, db_index=True,
                                  related_name='categories', verbose_name=_('Lot category'))
     description = models.TextField(_('Description'), blank=True, null=True)

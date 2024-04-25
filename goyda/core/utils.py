@@ -20,11 +20,13 @@ class DataMixin:
         if user_id:
             purchases = cache.get(f'status_bar.purchases.{user_id}')
             sell = cache.get(f'status_bar.sell.{user_id}')
-            if not purchases or not sell:
+            if purchases is None or sell is None:
                 purchases = Bid.objects.filter(user_id=user_id, trade_id__status=1).values('trade_id').distinct().count()
                 sell = TradeLog.objects.filter(lot_id__seller_id=user_id, status=1).count()
                 cache.set(f'status_bar.purchases.{user_id}', purchases, 60)
                 cache.set(f'status_bar.sell.{user_id}', sell, 60)
             context['purchases'] = purchases
             context['sell'] = sell
+            
+        context['balance'] = self.request.user.balance
         return context

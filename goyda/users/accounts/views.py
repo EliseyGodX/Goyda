@@ -2,14 +2,15 @@ from typing import Any
 
 from core.utils import DataMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, UpdateView
 from users.accounts.forms import AccountsEditForm
 from users.models import User
 
 
 class AccountsPersonalView(LoginRequiredMixin, DataMixin, DetailView):
-    model = User
     context_object_name = 'user' 
     template_name = 'accounts/personal.html'
     login_url = 'users:login'
@@ -17,6 +18,7 @@ class AccountsPersonalView(LoginRequiredMixin, DataMixin, DetailView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context_mixin = self.get_default_context(title='Personal account')
+        context['full_address'] = self.request.user.city.full_address
         context.update(context_mixin)
         return context
     
@@ -43,14 +45,16 @@ class AccountsEditView(LoginRequiredMixin, DataMixin, UpdateView):
     
 
 class AccountsBrowseView(DataMixin, DetailView):
-    model = User
     slug_url_kwarg = 'username'
     slug_field = "username"
+    queryset = User.objects.only('username', 'avatar', 'about', 'first_name', 
+                                 'last_name', 'email', 'phone', 'city', 'age')
     context_object_name = 'user' 
     template_name = 'accounts/browse.html'
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context_mixin = self.get_default_context(title='Account')
+        context['full_address'] = self.object.city.full_address
         context.update(context_mixin)
         return context
