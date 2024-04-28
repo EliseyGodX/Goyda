@@ -17,7 +17,6 @@ class Lot(models.Model):
     description = models.TextField(_('Description'), blank=True, null=True)
     city = models.ForeignKey('core.City', on_delete=models.PROTECT, db_index=True, 
                              related_name='lot_cities', verbose_name='City')
-    date_of_placement = models.DateTimeField(_('date of placement'), auto_now_add=True)
     date_of_end = models.DateField(_('date of end'))
     
     class Meta:

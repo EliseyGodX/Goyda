@@ -17,7 +17,7 @@ class TradeLog(models.Model):
     buyer = models.ForeignKey('users.User', on_delete=models.PROTECT, db_index=True, null=True,
                                 related_name='buyer', verbose_name=_('User ID'),
                                 help_text=_('The ID of the user who bought this lot'))
-    current_price = models.PositiveIntegerField(_('Current price'),  help_text=_('The current price for the lot'))
+    current_price = models.PositiveBigIntegerField(_('Current price'),  help_text=_('The current price for the lot'))
     
     class Meta:
         verbose_name = _('Trade Log')

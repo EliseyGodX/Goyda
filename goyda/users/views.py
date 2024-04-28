@@ -1,6 +1,6 @@
 from typing import Any
 
-from core.paginators import CachedPaginator
+from core.paginators import CachedPaginator, PAGINATE_SETTINGS
 from core.utils import DataMixin
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -66,9 +66,9 @@ class UsersListView(DataMixin, ListView):
     queryset = User.objects.values('username', 'first_name', 'last_name', 'city__name')
     context_object_name = 'users'
     template_name = 'users/users.html'
-    paginate_by = 10
+    paginate_by = PAGINATE_SETTINGS['UsersListView']['pagination_by']
+    cache_key = PAGINATE_SETTINGS['UsersListView']['cache_key']
     paginator_class = CachedPaginator
-    cache_key = 'cache_page_{}'
     cache_timeout = 12 * 60
     
     def get_context_data(self, **kwargs: Any):

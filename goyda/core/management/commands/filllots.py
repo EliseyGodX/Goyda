@@ -36,7 +36,6 @@ class Command(BaseCommand):
                 'title': self.fake.user_name(),
                 'start_price': random.randint(10, 1000),
                 'description': self.fake.text(),
-                'date_of_placement': random_date,
                 'date_of_end': random_date + datetime.timedelta(weeks=1),
                 'city': random.choice(self.cities),
                 'category': random.choice(self.categories),

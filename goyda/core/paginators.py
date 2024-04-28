@@ -6,6 +6,13 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils.functional import cached_property
 
 
+PAGINATE_SETTINGS = {
+    'UsersListView': {
+        'pagination_by': 10,
+        'cache_key': 'paginator_UsersListView_page_{}'
+    }
+}
+
 class CachedPaginator(Paginator):
     
     def __init__(self, object_list, per_page, 

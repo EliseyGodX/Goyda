@@ -13,6 +13,3 @@ class Command(BaseCommand):
         FillLots().handle(count * 5)
         FillBids().handle()
         self.stdout.write(self.style.SUCCESS('Data: Successfully'))
-        
-            
-            

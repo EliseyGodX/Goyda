@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 import os
 
@@ -38,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
+    'django_celery_results',
     'debug_toolbar',
     
     'core',
@@ -168,3 +171,15 @@ CACHES = {
 }
 
 AUTH_USER_MODEL = 'users.User' 
+
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_CACHE_BACKEND = 'default'
+
+CELERY_BEAT_SHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULE = {
+    'update_UsersListView_paginator': {
+        'task': 'users.tasks.update_UsersListView_paginator',
+        'schedule': timedelta(hours=12)
+    },
+}

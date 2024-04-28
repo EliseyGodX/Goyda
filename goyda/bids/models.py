@@ -11,7 +11,7 @@ class Bid(models.Model):
     user = models.ForeignKey('users.User', on_delete=models.PROTECT, db_index=True,
                                 related_name='users', verbose_name=_('User ID'),
                                 help_text=_('The ID of the user who placed the bet'))
-    bid = models.PositiveIntegerField(_('Bid'), help_text=_('The amount that the user has set'))
+    bid = models.PositiveBigIntegerField(_('Bid'), help_text=_('The amount that the user has set'))
     
     class Meta:
         verbose_name = _('Bid')
