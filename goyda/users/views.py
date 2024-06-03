@@ -63,9 +63,9 @@ class UsersRegistrationView(DataMixin, FormView):
     
     
 class UsersListView(DataMixin, ListView):
-    queryset = User.objects.values('username', 'first_name', 'last_name', 'city__name')
     context_object_name = 'users'
     template_name = 'users/users.html'
+    queryset = PAGINATE_SETTINGS['UsersListView']['queryset']
     paginate_by = PAGINATE_SETTINGS['UsersListView']['pagination_by']
     cache_key = PAGINATE_SETTINGS['UsersListView']['cache_key']
     paginator_class = CachedPaginator

@@ -27,6 +27,6 @@ class DataMixin:
                 cache.set(f'status_bar.sell.{user_id}', sell, 60)
             context['purchases'] = purchases
             context['sell'] = sell
+            context['balance'] = self.request.user.balance
             
-        context['balance'] = self.request.user.balance
         return context

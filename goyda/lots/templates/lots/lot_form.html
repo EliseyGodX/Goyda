@@ -1,0 +1,81 @@
+{% extends "lots/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+    {% translate "New lot" %}
+{% endblock title %}
+{% block content_ %}
+    <style>input, select {width: 100%}</style>
+    {{ form.media.css }}
+    <form method="post"
+          action="{% url 'lots:new_lot' %}"
+          class="form"
+          enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card w-145">
+            <h2 class="card-title text-center my-2">{% translate "Lot card" %}</h2>
+            {% if form.errors %}
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}<li>{{ field.label }}: {{ error }}</li>{% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <hr class="border border-primary border-1 opacity-50">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">{% translate "Title" %}</span>
+                        {{ form.title }}
+                    </div>
+                </h5>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">{% translate "Picture" %}</label>
+                    {{ form.picture }}
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">{% translate "Start price" %}</span>
+                                {{ form.start_price }}
+                            </div>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">{% translate "Date of end" %}</span>
+                                {{ form.date_of_end }}
+                            </div>
+                        </div>
+                    </div>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="{{ form.category.id_for_label }}" class="form-label">{% translate "Category" %}</label>
+                                {{ form.category }}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.city.id_for_label }}" class="form-label">{% translate "City" %}</label>
+                                {{ form.city }}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">{% translate "Description" %}</span>
+                            {{ form.description }}
+                        </div>
+                    </li>
+                </div>
+            </li>
+        </ul>
+        <div class="my-3 text-center">
+            <button type="submit" class="btn btn-primary">{% translate "Ready" %}</button>
+        </div>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{ form.media.js }}
+{% endblock content_ %}

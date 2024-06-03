@@ -1,10 +1,11 @@
 from django import forms
 from django.contrib.auth.forms import (AuthenticationForm, SetPasswordForm,
                                        UserCreationForm)
+from core.widgets import CityWidget
 from django.utils.translation import gettext_lazy as _
 from users.models import User
-
-
+    
+    
 class UserRegistrationForm(UserCreationForm):
     password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
     password2 = forms.CharField(label=_('Repeat password'), widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
@@ -12,15 +13,15 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name',  'username',
-                  'avatar', 'age', 'email')
+                  'city', 'avatar', 'age', 'email')
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control', 'type': 'text'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control', 'type': 'text'}),
             'username': forms.TextInput(attrs={'class': 'form-control', 'type': 'text'}),
-            # 'city': forms.TextInput(attrs={'class': 'form-control', 'type': 'text'}),
             'avatar': forms.FileInput(attrs={'class': 'form-control', 'type': 'file'}),
             'age': forms.NumberInput(attrs={'class': 'form-control', 'type': 'number'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'type': 'email'})
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'type': 'email'}),
+            'city': CityWidget
         }
         
     def save(self, commit=True):
@@ -46,3 +47,4 @@ class UsersPasswordChangeForm(SetPasswordForm):
                 'class': 'form-control',
                 'autocomplete': 'off'
             })
+            

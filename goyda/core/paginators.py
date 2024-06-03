@@ -4,10 +4,11 @@ from django.core.cache import cache
 from django.core.exceptions import EmptyResultSet
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils.functional import cached_property
-
+from users.models import User
 
 PAGINATE_SETTINGS = {
     'UsersListView': {
+        'queryset':  User.objects.values('username', 'first_name', 'last_name', 'city__name'),
         'pagination_by': 10,
         'cache_key': 'paginator_UsersListView_page_{}'
     }

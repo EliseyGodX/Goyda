@@ -1,8 +1,8 @@
 from django.urls import path
-from lots.views import purchases
+from lots.views import NewLotView
 
 app_name = 'lots'
 
 urlpatterns = [
-    path('', purchases, name='pass'),
+    path('new-lot/', NewLotView.as_view(), name='new_lot'),
 ]

@@ -14,5 +14,4 @@ urlpatterns = [
     path('change-password/', UsersPasswordChangeView.as_view(), name='change_password'),
     path('track-purchases/', UsersTrackPurchasesView.as_view(), name='track_purchases'),
     path('track-sales/', UsersTrackSalesView.as_view(), name='track_sales'),
-    path('sell/', UsersPasswordChangeView.as_view(), name='sell'),
 ]
