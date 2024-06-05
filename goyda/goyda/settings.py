@@ -181,14 +181,12 @@ SELECT2_CACHE_BACKEND = "select2"
 
 AUTH_USER_MODEL = 'users.User' 
 
-from celery import Celery
-from django.conf import settings
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Gimsap.settings')
-
-CELERY_BROKER_URL = "redis://localhost:6379/0"
-CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
-CELERY_CACHE_BACKEND = "redis://localhost:6379/0"
+CELERY_BROKER_URL = 'amqp://myuser:mypassword@localhost:5672/myvhost'
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
 
 CELERY_BEAT_SHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BEAT_SCHEDULE = {
