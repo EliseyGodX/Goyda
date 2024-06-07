@@ -5,12 +5,19 @@ from django.core.exceptions import EmptyResultSet
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils.functional import cached_property
 from users.models import User
+from lots.models import Lot
+from trading.models import TradeLog
 
 PAGINATE_SETTINGS = {
     'UsersListView': {
         'queryset':  User.objects.values('username', 'first_name', 'last_name', 'city__name'),
         'pagination_by': 10,
         'cache_key': 'paginator_UsersListView_page_{}'
+    },
+    'LotsByCategoryView': {
+        'queryset': TradeLog.objects.values('current_price', 'lot_id', 'lot__title', 'lot__picture').filter(status=1),
+        'pagination_by': 8,
+        'cache_key': 'paginator_LotsByCategoryView'
     }
 }
 

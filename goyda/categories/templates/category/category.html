@@ -19,16 +19,61 @@
         </blockquote>
         <figcaption class="blockquote-footer">{{ title }}</figcaption>
     </figure>
-    <div class="d-flex flex-wrap">
-        {% for lot in lots %}
-            <div class="card m-2" style="width: 18rem;">
-                <img src="{{ lot.picture.url }}" class="card-img-top" alt="Oops...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ lot.title }}</h5>
-                    <h6 class="card-title">{% translate "price:" %} {{ lot.price }}</h6>
-                    <a href="#" class="btn btn-primary">{% translate "Go to lot" %}</a>
-                </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="d-flex flex-wrap">
+                {% for trade in trades %}
+                    <div class="card m-2" style="width: 18rem;">
+                        <img src="{{ trade.lot_picture_url }}"
+                             class="card-img-top"
+                             width="280"
+                             height="180"
+                             alt="Oops...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ trade.lot__title }}</h5>
+                            <h6 class="card-title">{% translate "price:" %} {{ trade.current_price }}</h6>
+                            <a href="{% url "lots:inspect_lot" lot_id=trade.lot_id %}" class="btn btn-primary">{% translate "Go to lot" %}</a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+        </div>
     </div>
+    {% if is_paginated %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">&laquo; First</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Next</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
 {% endblock content %}

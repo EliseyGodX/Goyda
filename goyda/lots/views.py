@@ -8,11 +8,11 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
-from django.views.generic import FormView
+from django.views.generic import FormView, DetailView
 from lots.forms import AddLotForm
 from lots.tasks import lot_lifetime
 from trading.models import TradeLog
-from dateutil import parser
+from lots.models import Lot
 
 @method_decorator(csrf_protect, name='dispatch')
 class NewLotView(LoginRequiredMixin, DataMixin, FormView):
@@ -39,10 +39,25 @@ class NewLotView(LoginRequiredMixin, DataMixin, FormView):
             form.add_error('date_of_end', _("Date of end must be between tomorrow and 2 weeks ahead"))
             if form.errors:
                 return self.form_invalid(form)
-            
         lot.save()
         trade = TradeLog.objects.create(lot=lot, status=1, buyer=None, current_price=lot.start_price)
-        delay = date_of_end - timezone.now().date()
-        lot_lifetime.apply_async(args=[str(trade.id)], countdown=delay.total_seconds(), broker='redis://localhost:6379/0')
         trade.save()
+        delay = date_of_end - timezone.now().date()
+        lot_lifetime.apply_async(args=[str(trade.id)], countdown=delay.total_seconds(),)
         return super().form_valid(form)
+    
+    
+class LotInspectView(DataMixin, DetailView):
+    template_name = 'lots/inspect.html'
+    slug_url_kwarg = 'lot_id'
+    slug_field = 'id'
+    context_object_name = 'lot'
+    queryset = Lot.objects
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context_mixin = self.get_default_context(title='inspect')
+        context['trade'] = TradeLog.objects.get(lot_id=self.object.id)
+        context['address'] = self.object.city.full_address
+        context.update(context_mixin)
+        return context
