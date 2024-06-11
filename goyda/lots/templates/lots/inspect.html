@@ -26,19 +26,28 @@
             <h5 class="card-title">{{ lot.description }}</h5>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">{% translate "Category: " %}{{ lot.category }}</li>
+            <li class="list-group-item">
+                <a class="link-warning"
+                   href="{% url 'categories:category' category_slug=lot.category.slug %}">{% translate "Category: " %}{{ lot.category }}</a>
+            </li>
             <li class="list-group-item">{% translate "Current price: " %}{{ trade.current_price }}</li>
             <li class="list-group-item">{% translate "Start price: " %}{{ lot.start_price }}</li>
-            <li class="list-group-item">{% translate "Seller: " %}{{ lot.seller.username }}</li>
-            <li class="list-group-item">{% translate "Buyer: " %}{{ trade.buyer.username }}</li>
+            <li class="list-group-item">
+                <a class="link-warning"
+                   href="{% url 'users:accounts:browse' username=lot.seller.username %}">{% translate "Seller: " %}{{ lot.seller.username }}</a>
+            </li>
+            <li class="list-group-item">
+                <a class="link-warning"
+                   href="{% url 'users:accounts:browse' username=trade.buyer__username %}">{% translate "Buyer: " %}{{ trade.buyer__username }}</a>
+            </li>
             <li class="list-group-item">{% translate "Address: " %}{{ address }}</li>
         </ul>
         {% if trade.status == 1 %}
             <div class="card-body">
                 {% if request.user.id != lot.seller_id %}
-                    <button type="button" class="btn btn-primary">{% translate "Bid" %}</button>
-                {% else %}
-                    <button type="button" class="btn btn-primary">{% translate "Change" %}</button>
+                    <a type="button"
+                       class="btn btn-primary"
+                       href="{% url 'lots:bid' lot_id=lot.id %}">{% translate "Bid" %}</a>
                 {% endif %}
             </div>
         {% endif %}

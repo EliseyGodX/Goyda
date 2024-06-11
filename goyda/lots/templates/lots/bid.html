@@ -1,0 +1,28 @@
+{% extends "lots/base.html" %}
+{% load i18n %}
+{% block title %}
+    {% translate "Bid" %}
+{% endblock title %}
+{% block content_ %}
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <img src="{{ lot.lot_picture_url }}"
+                 class="card-img-top"
+                 width="100"
+                 height="180"
+                 alt="Oops..." />
+            <div class="card-body">
+                <h5 class="card-title">{{ lot.lot__title }}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <form method="post"
+              action="{% url 'lots:bid' lot_id=lot_id %}"
+              class="form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary mt-2">{% translate "Submit" %}</button>
+        </form>
+    </div>
+{% endblock content_ %}

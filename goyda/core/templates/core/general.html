@@ -26,7 +26,7 @@
                 <div class="card-body">
                   <h5 class="card-title">{{ lot.lot.title }}</h5>
                   <h6 class="card-title">{% translate "current price:" %} {{ lot.current_price }}</h6>
-                  <a href="{% url "lots:inspect_lot" lot_id=lot.lot.id %}" class="btn btn-primary">{% translate "Go to lot" %}</a>
+                  <a href="{% url "lots:inspect" lot_id=lot.lot.id %}" class="btn btn-primary">{% translate "Go to lot" %}</a>
                 </div>
               </div>
             {% endfor %}
@@ -44,7 +44,7 @@
                 <div class="card-body">
                   <h5 class="card-title">{{ lot.lot.title }}</h5>
                   <h6 class="card-title">{% translate "current price:" %} {{ lot.current_price }}</h6>
-                  <a href="{% url "lots:inspect_lot" lot_id=lot.lot.id %}" class="btn btn-primary">{% translate "Go to lot" %}</a>
+                  <a href="{% url "lots:inspect" lot_id=lot.lot.id %}" class="btn btn-primary">{% translate "Go to lot" %}</a>
                 </div>
               </div>
             {% endfor %}
@@ -62,7 +62,7 @@
                 <div class="card-body">
                   <h5 class="card-title">{{ lot.lot.title }}</h5>
                   <h6 class="card-title">{% translate "current price:" %} {{ lot.current_price }}</h6>
-                  <a href="{% url "lots:inspect_lot" lot_id=lot.lot.id %}" class="btn btn-primary">{% translate "Go to lot" %}</a>
+                  <a href="{% url "lots:inspect" lot_id=lot.lot.id %}" class="btn btn-primary">{% translate "Go to lot" %}</a>
                 </div>
               </div>
             {% endfor %}

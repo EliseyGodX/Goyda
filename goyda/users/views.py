@@ -1,6 +1,6 @@
 from typing import Any
 
-from core.paginators import CachedPaginator, PAGINATE_SETTINGS
+from core.paginators import CachedPaginator
 from core.utils import DataMixin
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -65,9 +65,9 @@ class UsersRegistrationView(DataMixin, FormView):
 class UsersListView(DataMixin, ListView):
     context_object_name = 'users'
     template_name = 'users/users.html'
-    queryset = PAGINATE_SETTINGS['UsersListView']['queryset']
-    paginate_by = PAGINATE_SETTINGS['UsersListView']['pagination_by']
-    cache_key = PAGINATE_SETTINGS['UsersListView']['cache_key']
+    queryset = User.objects.values('username', 'first_name', 'last_name', 'city__name')
+    paginate_by = 10
+    cache_key = 'paginator_UsersListView_page_{}'
     paginator_class = CachedPaginator
     cache_timeout = 12 * 60
     

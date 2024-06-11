@@ -94,7 +94,7 @@
                 {% for category in categories %}
                   <li>
                     <a class="dropdown-item"
-                       href="{% url 'category:category' category_slug=category.slug %}">{{ category.name }}</a>
+                       href="{% url 'categories:category' category_slug=category.slug %}">{{ category.name }}</a>
                   </li>
                 {% endfor %}
               </ul>
@@ -128,7 +128,7 @@
                 </a>
               </li>
               <li class="page-item">
-                <a class="page-link" href="{% url 'lots:new_lot' %}">{% translate "Sell" %}</a>
+                <a class="page-link" href="{% url 'lots:add' %}">{% translate "Sell" %}</a>
               </li>
             </ul>
           </nav>

@@ -8,7 +8,7 @@
     <style>input, select {width: 100%}</style>
     {{ form.media.css }}
     <form method="post"
-          action="{% url 'lots:new_lot' %}"
+          action="{% url 'lots:add' %}"
           class="form"
           enctype="multipart/form-data">
         {% csrf_token %}
