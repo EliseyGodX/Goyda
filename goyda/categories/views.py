@@ -1,7 +1,7 @@
 from typing import Any
 
 from categories.models import Category
-from core.paginators import CachedPaginator
+from core.paginators import CachedPaginator, PAGINATE_SETTINGS
 from core.utils import DataMixin
 from django.conf import settings
 from django.db.models import CharField, F, Value
@@ -17,13 +17,13 @@ class LotsByCategoryView(DataMixin, ListView):
     model = Lot
     context_object_name = 'trades'
     template_name = 'category/category.html'
-    paginate_by = 8
-    cache_key = 'paginator_LotsByCategoryView'
+    paginate_by = PAGINATE_SETTINGS['LotsByCategoryView']['pagination_by']
+    cache_key = PAGINATE_SETTINGS['LotsByCategoryView']['cache_key']
     paginator_class = CachedPaginator
     cache_timeout = 5 * 60
     
-    def get_queryset(self) -> QuerySet[Any]:
-        return (TradeLog.objects.values('current_price', 'lot_id', 'lot__title', 'lot__picture')
+    def get_queryset(self):
+        return (PAGINATE_SETTINGS['LotsByCategoryView']['queryset']
                 .filter(lot__category__slug=self.kwargs['category_slug'], status=1)
                 .annotate(
                     lot_title=F('lot__title'),

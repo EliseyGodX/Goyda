@@ -37,8 +37,12 @@
                    href="{% url 'users:accounts:browse' username=lot.seller.username %}">{% translate "Seller: " %}{{ lot.seller.username }}</a>
             </li>
             <li class="list-group-item">
-                <a class="link-warning"
-                   href="{% url 'users:accounts:browse' username=trade.buyer__username %}">{% translate "Buyer: " %}{{ trade.buyer__username }}</a>
+                {% if trade.buyer__username %}
+                    <a class="link-warning"
+                       href="{% url 'users:accounts:browse' username=trade.buyer__username %}">{% translate "Buyer: " %}{{ trade.buyer__username }}</a>
+                {% else %}
+                    {% translate "Buyer: None" %}
+                {% endif %}
             </li>
             <li class="list-group-item">{% translate "Address: " %}{{ address }}</li>
         </ul>
@@ -47,7 +51,7 @@
                 {% if request.user.id != lot.seller_id %}
                     <a type="button"
                        class="btn btn-primary"
-                       href="{% url 'lots:bid' lot_id=lot.id %}">{% translate "Bid" %}</a>
+                       href="{% url 'bids:bid' lot_id=lot.id %}">{% translate "Bid" %}</a>
                 {% endif %}
             </div>
         {% endif %}

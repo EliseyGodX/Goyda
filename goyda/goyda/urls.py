@@ -11,6 +11,7 @@ urlpatterns = [
     path('lots/', include('lots.urls', namespace='lots')),
     path('users/', include('users.urls', namespace='users')),
     path('categories/', include('categories.urls', namespace='categories')),
+    path('bids/', include('bids.urls', namespace='bids')),
     path('select2/', include(select2_urls))
 ]
 

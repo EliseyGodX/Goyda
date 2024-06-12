@@ -12,13 +12,15 @@
                  height="180"
                  alt="Oops..." />
             <div class="card-body">
-                <h5 class="card-title">{{ lot.lot__title }}</h5>
+                <a class="link-warning" href="{% url 'lots:inspect' lot_id=lot_id %}">
+                    <h5 class="card-title">{{ lot.lot__title }}</h5>
+                </a>
             </div>
         </div>
     </div>
     <div class="col">
         <form method="post"
-              action="{% url 'lots:bid' lot_id=lot_id %}"
+              action="{% url 'bids:bid' lot_id=lot_id %}"
               class="form">
             {% csrf_token %}
             {{ form.as_p }}
