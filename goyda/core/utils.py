@@ -21,7 +21,7 @@ class DataMixin:
             purchases = cache.get(f'status_bar.purchases.{user_id}')
             sell = cache.get(f'status_bar.sell.{user_id}')
             if purchases is None or sell is None:
-                purchases = Bid.objects.filter(user_id=user_id, trade_id__status=1).values('trade_id').distinct().count()
+                purchases = Bid.objects.filter(user_id=user_id, trade__status=1).values('trade_id').distinct().count()
                 sell = TradeLog.objects.filter(lot_id__seller_id=user_id, status=1).count()
                 cache.set(f'status_bar.purchases.{user_id}', purchases, 60)
                 cache.set(f'status_bar.sell.{user_id}', sell, 60)

@@ -14,7 +14,7 @@ PAGINATE_SETTINGS = {
         'cache_key': 'paginator_UsersListView_page_{}'
     },
     'LotsByCategoryView': {
-        'queryset': TradeLog.objects.values('current_price', 'lot_id', 'lot__title', 'lot__picture').filter(status=1),
+        'queryset': TradeLog.objects.values('current_price', 'lot_id', 'lot__title', 'lot__picture'),
         'pagination_by': 8,
         'cache_key': 'paginator_LotsByCategoryView'
     }

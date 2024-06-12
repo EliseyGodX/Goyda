@@ -7,18 +7,29 @@
     <hr class="border border-primary border-1 opacity-50">
     <h1 class="display-3" style="text-align: center;">{% translate "Active" %}</h1>
     <div class="d-flex flex-wrap">
-        {% if user.active_purchases.all %}
-            {% for lot in user.active_purchases.all %}
+        {% if active_trades %}
+            {% for trade in active_trades %}
                 <div class="card m-2" style="width: 18rem;">
-                    <img src="{{ lot.picture.url }}" class="card-img-top" alt="Oops...">
+                    <img src="{{ trade.lot.picture.url }}"
+                         class="card-img-top"
+                         width="280"
+                         height="180"
+                         alt="Oops...">
                     <div class="card-body">
-                        <h5 class="card-title">{{ lot.title }}</h5>
+                        <h5 class="card-title">{{ trade.lot.title }}</h5>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">{% translate "current price:" %} {{ lot.current_price }}</li>
-                            <li class="list-group-item">{% translate "start price:" %} {{ lot.start_price }}</li>
-                            <li class="list-group-item">{% translate "current buyer:" %} {{ lot.buyer }}</li>
+                            <li class="list-group-item">{% translate "current price:" %} {{ trade.current_price }}</li>
+                            <li class="list-group-item">{% translate "start price:" %} {{ trade.lot.start_price }}</li>
+                            <li>
+                                {% if trade in highest_bid %}
+                                    <div class="alert alert-success" role="alert">{% translate "Your bet" %}</div>
+                                {% else %}
+                                    <div class="alert alert-danger" role="alert">{% translate "Not your bet" %}</div>
+                                {% endif %}
+                            </li>
                         </ul>
-                        <a href="#" class="btn btn-primary">{% translate "Go to lot" %}</a>
+                        <a href="{% url "lots:inspect" lot_id=trade.lot.id %}"
+                           class="btn btn-primary">{% translate "Go to lot" %}</a>
                     </div>
                 </div>
             {% endfor %}
@@ -29,18 +40,17 @@
     <hr class="border border-primary border-1 opacity-50">
     <h1 class="display-3" style="text-align: center;">{% translate "Completed" %}</h1>
     <div class="d-flex flex-wrap">
-        {% if user.completed_purchases.all %}
-            {% for lot in user.completed_purchases.all %}
+        {% if completed_trades %}
+            {% for trade in completed_trades %}
                 <div class="card m-2" style="width: 18rem;">
-                    <img src="{{ lot.picture.url }}" class="card-img-top" alt="Oops...">
+                    <img src="{{ trade.lot.picture.url }}" class="card-img-top" alt="Oops...">
                     <div class="card-body">
-                        <h5 class="card-title">{{ lot.title }}</h5>
+                        <h5 class="card-title">{{ trade.lot.title }}</h5>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">{% translate "current price:" %} {{ lot.current_price }}</li>
-                            <li class="list-group-item">{% translate "start price:" %} {{ lot.start_price }}</li>
-                            <li class="list-group-item">{% translate "current buyer:" %} {{ lot.buyer }}</li>
+                            <li class="list-group-item">{% translate "current price:" %} {{ trade.current_price }}</li>
+                            <li class="list-group-item">{% translate "start price:" %} {{ trade.lot.start_price }}</li>
                         </ul>
-                        <a href="#" class="btn btn-primary">{% translate "Go to lot" %}</a>
+                        <a href="{% url "lots:inspect" lot_id=trade.lot.id %}" class="btn btn-primary">{% translate "Go to lot" %}</a>
                     </div>
                 </div>
             {% endfor %}
