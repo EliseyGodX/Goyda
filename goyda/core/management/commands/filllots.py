@@ -48,7 +48,7 @@ class Command(BaseCommand):
                 buyer = None
             trade_data = {
                 'current_price': lot.start_price,
-                'status': 1 if buyer is not None else 0,
+                'status': 1,
                 'buyer': buyer,
                 'lot': lot                
             }

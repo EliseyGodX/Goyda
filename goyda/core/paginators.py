@@ -7,19 +7,17 @@ from django.utils.functional import cached_property
 from trading.models import TradeLog
 from users.models import User
 
+from goyda.settings import BOOT_PAGINATE_SETTINGS
+
 PAGINATE_SETTINGS = {
     'UsersListView': {
         'queryset':  User.objects.values('username', 'first_name', 'last_name', 'city__name'),
-        'pagination_by': 10,
-        'cache_key': 'paginator_UsersListView_page_{}'
-    },
-    'LotsByCategoryView': {
+        **BOOT_PAGINATE_SETTINGS['UsersListView']
+        },
+     'LotsByCategoryView': {
         'queryset': TradeLog.objects.values('current_price', 'lot_id', 'lot__title', 'lot__picture'),
-        'pagination_by': 8,
-        'cache_key': 'paginator_LotsByCategoryView'
-    }
+        **BOOT_PAGINATE_SETTINGS['LotsByCategoryView']}
 }
-
 
 class CachedPaginator(Paginator):
     

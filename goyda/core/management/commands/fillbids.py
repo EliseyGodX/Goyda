@@ -37,10 +37,11 @@ class Command(BaseCommand):
             except Exception as e: print(e)        
             trade.current_price = bid_data['bid']
             trade.buyer = bid_data['user']
-            trade.status = random.randint(0, 1)
+            trade.status = 1
             trade.save()
             self.bids[trade] -= 1
             if self.bids[trade] == 0:
+                trade.status = random.randint(0, 1)
                 del self.bids[trade]
         
             

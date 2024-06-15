@@ -133,8 +133,9 @@
             </ul>
           </nav>
         {% endif %}
-        <form class="d-flex" role="search">
+        <form class="d-flex" role="search" action="{% url 'search' %}" method="get">
           <input class="form-control me-2"
+                 name="q"
                  type="search"
                  placeholder="{% translate "Search by all categories" %}"
                  aria-label="Search" />

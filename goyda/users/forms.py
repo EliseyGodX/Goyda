@@ -1,11 +1,11 @@
+from core.widgets import CityWidget
 from django import forms
 from django.contrib.auth.forms import (AuthenticationForm, SetPasswordForm,
                                        UserCreationForm)
-from core.widgets import CityWidget
 from django.utils.translation import gettext_lazy as _
 from users.models import User
-    
-    
+
+
 class UserRegistrationForm(UserCreationForm):
     password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
     password2 = forms.CharField(label=_('Repeat password'), widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
@@ -37,7 +37,6 @@ class LoginUserForm(AuthenticationForm):
     password = forms.CharField(label=_('Password'), widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
     
     
-
 class UsersPasswordChangeForm(SetPasswordForm):
     
     def __init__(self, *args, **kwargs):

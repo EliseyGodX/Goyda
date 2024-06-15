@@ -1,26 +1,18 @@
-import math
 from datetime import timedelta
 from typing import Any
 
 from core.utils import DataMixin
-from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db import transaction
-from django.db.models import CharField, F, Value
-from django.db.models.functions import Concat
-from django.http import Http404, HttpRequest, HttpResponse
-from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import DetailView, FormView
-from lots.forms import LotAddForm, LotBidForm
+from lots.forms import LotAddForm
 from lots.models import Lot
 from lots.tasks import lot_lifetime
 from trading.models import TradeLog
-from users.models import User
 
 
 @method_decorator(csrf_protect, name='dispatch')

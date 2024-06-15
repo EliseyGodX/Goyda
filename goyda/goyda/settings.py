@@ -10,9 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from datetime import timedelta
 from pathlib import Path
-import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -179,7 +179,7 @@ CACHES = {
 
 SELECT2_CACHE_BACKEND = "select2"
 
-AUTH_USER_MODEL = 'users.User' 
+AUTH_USER_MODEL = 'users.User'
 
 CELERY_BROKER_URL = 'amqp://myuser:mypassword@localhost:5672/myvhost'
 CELERY_RESULT_BACKEND = 'rpc://'
@@ -191,10 +191,27 @@ TASK_SOFT_TIME_LIMIT = 14 * 24 * 60 * 60
 TASK_TIME_LIMIT = 14 * 24 * 60 * 60
 BROKER_HEARTBEAT = 600
 
+BOOT_PAGINATE_SETTINGS = {
+    'UsersListView': {
+        'pagination_by': 10,
+        'cache_key': 'paginator_UsersListView_page_{}',
+        'cache_timeout': 2 * 60 * 60
+    },
+    'LotsByCategoryView': {
+        'pagination_by': 8,
+        'cache_key': 'paginator_LotsByCategoryView',
+        'cache_timeout': 5 * 60
+    }
+} 
+
 CELERY_BEAT_SHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BEAT_SCHEDULE = {
     'update_UsersListView_paginator': {
         'task': 'users.tasks.update_UsersListView_paginator',
-        'schedule': timedelta(hours=12)
+        'schedule': timedelta(BOOT_PAGINATE_SETTINGS['UsersListView']['cache_timeout'])
+    },
+    'update_LotsByCategoryView_paginator': {
+        'task': 'categories.tasks.update_LotsByCategoryView_paginator',
+        'schedule': timedelta(BOOT_PAGINATE_SETTINGS['LotsByCategoryView']['cache_timeout'])
     },
 }

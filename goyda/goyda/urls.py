@@ -1,4 +1,4 @@
-from core.views import GeneralView
+from core.views import GeneralView, GeneralSearchView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -8,6 +8,7 @@ from django_select2 import urls as select2_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', GeneralView.as_view(), name='general'),
+    path('search/', GeneralSearchView.as_view(), name='search'),
     path('lots/', include('lots.urls', namespace='lots')),
     path('users/', include('users.urls', namespace='users')),
     path('categories/', include('categories.urls', namespace='categories')),

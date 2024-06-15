@@ -1,7 +1,7 @@
+from bids.models import Bid
 from categories.models import Category
 from django.core.cache import cache
 from trading.models import TradeLog
-from bids.models import Bid
 
 
 class DataMixin:

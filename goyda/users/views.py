@@ -13,12 +13,10 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.decorators.csrf import csrf_protect
-from django.views.generic import DetailView, FormView, ListView, RedirectView
+from django.views.generic import FormView, ListView, RedirectView
 from trading.models import TradeLog
 from users.forms import (LoginUserForm, UserRegistrationForm,
                          UsersPasswordChangeForm)
-from users.models import User
-from django.db.models import Q, F
 
 
 @method_decorator(csrf_protect, name='dispatch')
@@ -71,8 +69,8 @@ class UsersListView(DataMixin, ListView):
     queryset = PAGINATE_SETTINGS['UsersListView']['queryset']
     paginate_by = PAGINATE_SETTINGS['UsersListView']['pagination_by']
     cache_key = PAGINATE_SETTINGS['UsersListView']['cache_key']
+    cache_timeout = PAGINATE_SETTINGS['UsersListView']['cache_timeout']
     paginator_class = CachedPaginator
-    cache_timeout = 12 * 60
     
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
