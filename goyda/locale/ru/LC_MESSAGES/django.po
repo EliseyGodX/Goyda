@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-30 14:31+0300\n"
+"POT-Creation-Date: 2024-06-15 14:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,137 +16,521 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-#: .\lots\models.py:9
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\bids\models.py:10
+msgid "Trade ID"
+msgstr ""
+
+#: .\bids\models.py:11
+msgid ""
+"The relationship with the TradeLogs table, which contains information about "
+"the lot and a link to the lot"
+msgstr ""
+
+#: .\bids\models.py:13 .\trading\models.py:18
+msgid "User ID"
+msgstr ""
+
+#: .\bids\models.py:14
+msgid "The ID of the user who placed the bet"
+msgstr ""
+
+#: .\bids\models.py:15 .\bids\models.py:18 .\bids\templates\bids\bid.html:4
+#: .\lots\forms.py:26 .\lots\templates\lots\inspect.html:54
+msgid "Bid"
+msgstr "Ставка"
+
+#: .\bids\models.py:15
+msgid "The amount that the user has set"
+msgstr ""
+
+#: .\bids\models.py:19
+msgid "Bids"
+msgstr ""
+
+#: .\bids\templates\bids\bid.html:27
+#: .\users\templates\users\change_password.html:12
+msgid "Submit"
+msgstr "Принять"
+
+#: .\bids\views.py:59
+msgid "insufficient funds"
+msgstr "Недостаточно средств"
+
+#: .\bids\views.py:61
+msgid "the bid must be 10 procent higher than the starting price"
+msgstr "Ставка должна быть минимум на 10% больше стартовой цены"
+
+#: .\categories\models.py:8
 msgid "category name"
 msgstr ""
 
-#: .\lots\models.py:10       
+#: .\categories\models.py:9
 msgid "description"
 msgstr ""
 
-#: .\lots\models.py:11
+#: .\categories\models.py:10
 msgid "path to category"
 msgstr ""
 
-#: .\lots\models.py:26
-msgid "seller"
+#: .\categories\models.py:13 .\lots\templates\lots\add.html:57
+msgid "Category"
+msgstr "Категория"
+
+#: .\categories\models.py:14 .\core\templates\core\base.html:92
+msgid "Categories"
+msgstr "Категории"
+
+#: .\categories\templates\categories\category.html:15
+msgid "Search in a category:"
+msgstr "Поиск в категории:"
+
+#: .\categories\templates\categories\category.html:18
+#: .\core\templates\core\base.html:142
+msgid "Search"
+msgstr "Поиск"
+
+#: .\categories\templates\categories\category.html:41
+msgid "price:"
+msgstr "цена"
+
+#: .\categories\templates\categories\category.html:43
+#: .\core\templates\core\general.html:29 .\core\templates\core\general.html:47
+#: .\core\templates\core\general.html:65
+#: .\users\templates\users\track_purchases.html:32
+#: .\users\templates\users\track_purchases.html:58
+#: .\users\templates\users\track_sales.html:25
+#: .\users\templates\users\track_sales.html:52
+msgid "Go to lot"
+msgstr "Перейти к лоту"
+
+#: .\core\models.py:11
+msgid "Country"
 msgstr ""
 
-#: .\lots\models.py:27
-msgid "buyer"
+#: .\core\models.py:12
+msgid "Countries"
 msgstr ""
 
-#: .\lots\models.py:28
-msgid "lot name"
+#: .\core\models.py:26
+msgid "Region"
 msgstr ""
 
-#: .\lots\models.py:29
-msgid "lot picture"
+#: .\core\models.py:27
+msgid "Regions"
 msgstr ""
 
-#: .\lots\models.py:30
-msgid "lot category"
+#: .\core\models.py:45 .\lots\templates\lots\add.html:61
+#: .\users\accounts\templates\accounts\edit.html:52 .\users\models.py:31
+#: .\users\templates\users\registration.html:41
+#: .\users\templates\users\users.html:10
+msgid "City"
+msgstr "Город"
+
+#: .\core\models.py:46
+msgid "Cities"
 msgstr ""
 
-#: .\lots\models.py:31
-msgid "the cost of the lot"
-msgstr ""
+#: .\core\templates\core\base.html:41
+msgid "Replenishment of the balance"
+msgstr "Пополнение баланса"
 
-#: .\lots\models.py:32
-msgid "description of the lot"
-msgstr ""
+#: .\core\templates\core\base.html:47
+msgid "To top up your balance, follow the following instructions:"
+msgstr "Чтобы пополнить баланс, следуйте инструкциям:"
 
-#: .\lots\models.py:33
-msgid "sellers city"
-msgstr ""
+#: .\core\templates\core\base.html:49
+msgid "Close"
+msgstr "Закрыть"
 
-#: .\lots\models.py:34
-msgid "date of placement"
-msgstr ""
-
-#: .\lots\models.py:35
-msgid "date of end"
-msgstr ""
-
-#: .\lots\templates\lots\base.html:60
+#: .\core\templates\core\base.html:70
 msgid "Account"
+msgstr "Аккаунт"
+
+#: .\core\templates\core\base.html:71
+msgid "Logout"
+msgstr "Выйти"
+
+#: .\core\templates\core\base.html:73 .\users\templates\users\login.html:4
+#: .\users\templates\users\login.html:30
+msgid "Login"
+msgstr "Войти"
+
+#: .\core\templates\core\base.html:81 .\users\models.py:33
+msgid "Balance"
+msgstr "Баланс"
+
+#: .\core\templates\core\base.html:85 .\users\models.py:40
+msgid "Users"
+msgstr "Пользователи"
+
+#: .\core\templates\core\base.html:113
+#: .\users\templates\users\track_purchases.html:4
+msgid "Track purchases"
+msgstr "Отследить покупки"
+
+#: .\core\templates\core\base.html:122
+#: .\users\templates\users\track_sales.html:4
+msgid "Track sales"
+msgstr "Отследить продажи"
+
+#: .\core\templates\core\base.html:131
+msgid "Sell"
+msgstr "Продать"
+
+#: .\core\templates\core\base.html:140
+msgid "Search by all categories"
+msgstr "Поиск по всем категориям"
+
+#: .\core\templates\core\general.html:5
+msgid "Recent lots"
+msgstr "Последние лоты"
+
+#: .\core\templates\core\general.html:28 .\core\templates\core\general.html:46
+#: .\core\templates\core\general.html:64
+#: .\users\templates\users\track_purchases.html:21
+#: .\users\templates\users\track_purchases.html:54
+#: .\users\templates\users\track_sales.html:21
+#: .\users\templates\users\track_sales.html:47
+msgid "current price:"
+msgstr "текущая цена: "
+
+#: .\core\validators.py:13
+msgid "an argument of the wrong type was passed ({})"
 msgstr ""
 
-#: .\lots\validators.py:12
-#, python-brace-format
-msgid "{hint} must end with \"/\""
+#: .\core\validators.py:14
+msgid "incorrect argument structure ({})"
 msgstr ""
 
-#: .\lots\validators.py:17 .\lots\validators.py:31 .\lots\validators.py:46
-#, python-brace-format
-msgid "The {hint} contains invalid characters"
+#: .\core\validators.py:15
+msgid "the value of the argument is not correct ({})"
 msgstr ""
 
-#: .\lots\validators.py:27
-#, python-brace-format
-msgid "The {hint} must start with a letter"
+#: .\core\validators.py:17
+msgid "this field must contain only letters"
 msgstr ""
 
-#: .\lots\validators.py:35 .\lots\validators.py:69
-#, python-brace-format
-msgid "The {hint} is too short"
+#: .\core\validators.py:18
+msgid "The name must begin with the letter"
 msgstr ""
 
-#: .\lots\validators.py:56
-#, python-brace-format
+#: .\core\validators.py:19
+msgid "you have exceeded the limit: {}"
+msgstr ""
+
+#: .\core\validators.py:20
 msgid ""
-"Enter the correct name of the {hint} (fill in all the spaces with \"-\", use "
-"only lowercase characters)"
+"you have not entered enough characters. This field must contain from "
+"characters: {}"
 msgstr ""
 
-#: .\lots\validators.py:65
-#, python-brace-format
-msgid "The {hint} must start with \"+\""
+#: .\core\validators.py:107
+msgid "the phone number is uncorrected"
 msgstr ""
 
-#: .\users\models.py:8
-msgid "first name"
+#: .\lots\forms.py:9
+msgid "Date od End"
 msgstr ""
 
-#: .\users\models.py:9
-msgid "last name"
+#: .\lots\models.py:10 .\lots\templates\lots\add.html:28
+msgid "Title"
+msgstr "Название"
+
+#: .\lots\models.py:12
+msgid "Seller"
 msgstr ""
 
-#: .\users\models.py:10
-msgid "email address"
+#: .\lots\models.py:13 .\lots\templates\lots\add.html:42
+msgid "Start price"
+msgstr "Начальная цена"
+
+#: .\lots\models.py:14 .\lots\templates\lots\add.html:33
+msgid "Picture"
+msgstr "Изображение"
+
+#: .\lots\models.py:16
+msgid "Lot category"
+msgstr "Категория лота"
+
+#: .\lots\models.py:17 .\lots\templates\lots\add.html:68
+msgid "Description"
+msgstr "Описание"
+
+#: .\lots\models.py:22
+msgid "Lot"
+msgstr "Лот"
+
+#: .\lots\models.py:23
+msgid "Lots"
 msgstr ""
 
-#: .\users\models.py:12
-msgid "the user's city"
+#: .\lots\templates\lots\add.html:5
+msgid "New lot"
+msgstr "Новый лот"
+
+#: .\lots\templates\lots\add.html:16
+msgid "Lot card"
+msgstr "Карточка лота"
+
+#: .\lots\templates\lots\add.html:49
+msgid "Date of end"
+msgstr "Дата окончания"
+
+#: .\lots\templates\lots\add.html:76
+#: .\users\templates\users\registration.html:69
+msgid "Ready"
+msgstr "Готово"
+
+#: .\lots\templates\lots\inspect.html:8
+msgid "Lot at auction"
+msgstr "Лот на аукционе"
+
+#: .\lots\templates\lots\inspect.html:14
+msgid "The bidding has been completed"
+msgstr "Торги завершены"
+
+#: .\lots\templates\lots\inspect.html:31
+msgid "Category: "
+msgstr "Категория: "
+
+#: .\lots\templates\lots\inspect.html:33
+msgid "Current price: "
+msgstr "Текущая цена: "
+
+#: .\lots\templates\lots\inspect.html:34
+msgid "Start price: "
+msgstr "Начальная цена: "
+
+#: .\lots\templates\lots\inspect.html:37
+msgid "Seller: "
+msgstr "Продавец: "
+
+#: .\lots\templates\lots\inspect.html:42
+msgid "Buyer: "
+msgstr "Покупатель: "
+
+#: .\lots\templates\lots\inspect.html:44
+msgid "Buyer: None"
+msgstr "Покупатель: отсутствует"
+
+#: .\lots\templates\lots\inspect.html:47
+msgid "Address: "
+msgstr "Адресс: "
+
+#: .\lots\views.py:40
+msgid "Date of end must be between tomorrow and 2 weeks ahead"
+msgstr "Дата окончания должна быть в промежутке от завтрешнего дня до 2 недель вперёд"
+
+#: .\trading\models.py:14
+msgid "Lot ID"
 msgstr ""
 
-#: .\users\models.py:13
-msgid "user's age"
+#: .\trading\models.py:15
+msgid "The ID of the lot"
 msgstr ""
 
-#: .\users\models.py:14
-msgid "purchases made by the user"
+#: .\trading\models.py:19
+msgid "The ID of the user who bought this lot"
 msgstr ""
 
-#: .\users\models.py:15
-msgid "sales made by the user"
+#: .\trading\models.py:20
+msgid "Current price"
 msgstr ""
+
+#: .\trading\models.py:20
+msgid "The current price for the lot"
+msgstr ""
+
+#: .\trading\models.py:23
+msgid "Trade Log"
+msgstr ""
+
+#: .\trading\models.py:24
+msgid "Trade Logs"
+msgstr ""
+
+#: .\users\accounts\templates\accounts\browse.html:8
+#: .\users\accounts\templates\accounts\personal.html:8
+msgid "Personal account"
+msgstr "Персональный аккаунт"
+
+#: .\users\accounts\templates\accounts\browse.html:16
+#: .\users\accounts\templates\accounts\personal.html:16
+msgid "First name: "
+msgstr "Имя: "
+
+#: .\users\accounts\templates\accounts\browse.html:17
+#: .\users\accounts\templates\accounts\personal.html:17
+msgid "Last name: "
+msgstr "Фамилия: "
+
+#: .\users\accounts\templates\accounts\browse.html:18
+#: .\users\accounts\templates\accounts\personal.html:18
+msgid "Email: "
+msgstr "Почта: "
+
+#: .\users\accounts\templates\accounts\browse.html:19
+#: .\users\accounts\templates\accounts\personal.html:19
+msgid "Phone: "
+msgstr "Телефон: "
+
+#: .\users\accounts\templates\accounts\browse.html:20
+#: .\users\accounts\templates\accounts\personal.html:20
+msgid "City: "
+msgstr "Город: "
+
+#: .\users\accounts\templates\accounts\browse.html:21
+#: .\users\accounts\templates\accounts\personal.html:21
+msgid "Age: "
+msgstr "Возраст: "
+
+#: .\users\accounts\templates\accounts\edit.html:10
+msgid "Username:"
+msgstr "Короткое имя:"
+
+#: .\users\accounts\templates\accounts\edit.html:19 .\users\models.py:29
+#: .\users\templates\users\registration.html:46
+msgid "Avatar"
+msgstr "Аватар"
+
+#: .\users\accounts\templates\accounts\edit.html:26
+msgid "About:"
+msgstr "О себе:"
+
+#: .\users\accounts\templates\accounts\edit.html:33
+msgid "First and last name:"
+msgstr "Имя и фамилия: "
+
+#: .\users\accounts\templates\accounts\edit.html:40
+#: .\users\templates\users\registration.html:56
+msgid "Email"
+msgstr "Почта"
+
+#: .\users\accounts\templates\accounts\edit.html:46
+msgid "Phone"
+msgstr "Телефон"
+
+#: .\users\accounts\templates\accounts\edit.html:58 .\users\models.py:32
+#: .\users\templates\users\registration.html:50
+msgid "Age"
+msgstr "Возраст"
+
+#: .\users\accounts\templates\accounts\edit.html:73
+msgid "Save"
+msgstr "Сохранить"
+
+#: .\users\accounts\templates\accounts\edit.html:78
+#: .\users\accounts\templates\accounts\personal.html:26
+#: .\users\templates\users\change_password.html:7
+msgid "Change password"
+msgstr "Изменить пароль"
+
+#: .\users\accounts\templates\accounts\personal.html:22
+msgid "Balance: "
+msgstr "Баланс: "
+
+#: .\users\accounts\templates\accounts\personal.html:25
+msgid "Edit"
+msgstr "Редактировать"
+
+#: .\users\forms.py:10 .\users\forms.py:37
+#: .\users\templates\users\login.html:24
+#: .\users\templates\users\registration.html:60
+msgid "Password"
+msgstr "Пароль"
+
+#: .\users\forms.py:11 .\users\templates\users\registration.html:64
+msgid "Repeat password"
+msgstr "Повторите пароль"
+
+#: .\users\forms.py:36 .\users\templates\users\login.html:17
+#: .\users\templates\users\registration.html:31
+#: .\users\templates\users\users.html:7
+msgid "Username"
+msgstr "Короткое имя"
+
+#: .\users\models.py:14 .\users\templates\users\registration.html:23
+#: .\users\templates\users\users.html:8
+msgid "First name"
+msgstr "Имя"
+
+#: .\users\models.py:15 .\users\templates\users\registration.html:27
+#: .\users\templates\users\users.html:9
+msgid "Last name"
+msgstr "Фамилия"
 
 #: .\users\models.py:16
-msgid "user's balance"
-msgstr ""
-
-#: .\users\models.py:17
-msgid "about the user"
+msgid "Email address"
 msgstr ""
 
 #: .\users\models.py:18
-msgid "user's avatar"
+msgid "username"
 msgstr ""
 
-#: .\users\models.py:19
-msgid "the user's phone number"
+#: .\users\models.py:22
+msgid "Required. 24 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
+
+#: .\users\models.py:26
+msgid "A user with that username already exists."
+msgstr ""
+
+#: .\users\models.py:34
+msgid "About"
+msgstr ""
+
+#: .\users\models.py:35
+msgid "Phone number"
+msgstr ""
+
+#: .\users\models.py:39
+msgid "User"
+msgstr ""
+
+#: .\users\templates\users\login.html:31
+msgid "Create account"
+msgstr "Создать аккаунт"
+
+#: .\users\templates\users\registration.html:4
+msgid "Registration"
+msgstr "Зарегестрироваться"
+
+#: .\users\templates\users\track_purchases.html:8
+#: .\users\templates\users\track_sales.html:8
+msgid "Active"
+msgstr "Активные"
+
+#: .\users\templates\users\track_purchases.html:22
+#: .\users\templates\users\track_purchases.html:55
+#: .\users\templates\users\track_sales.html:22
+#: .\users\templates\users\track_sales.html:48
+msgid "start price:"
+msgstr "начальная цена:"
+
+#: .\users\templates\users\track_purchases.html:25
+msgid "Your bet"
+msgstr "Твоя ставка"
+
+#: .\users\templates\users\track_purchases.html:27
+msgid "Not your bet"
+msgstr "Не твоя ставка"
+
+#: .\users\templates\users\track_purchases.html:37
+#: .\users\templates\users\track_purchases.html:63
+#: .\users\templates\users\track_sales.html:30
+#: .\users\templates\users\track_sales.html:57
+msgid "Its empty here"
+msgstr "Пусто"
+
+#: .\users\templates\users\track_purchases.html:41
+#: .\users\templates\users\track_sales.html:34
+msgid "Completed"
+msgstr "Завершенные"
+
+#: .\users\templates\users\track_sales.html:49
+msgid "current buyer:"
+msgstr "покупатель:"

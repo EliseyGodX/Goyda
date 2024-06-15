@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'goyda.urls'
@@ -129,6 +129,10 @@ LANGUAGE_CODE = 'en-us'
 LANGUES = [
     ('en', 'English'),
     ('ru', 'Russian'),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / "locale"
 ]
 
 TIME_ZONE = 'UTC'
